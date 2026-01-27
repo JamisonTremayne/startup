@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Pixel Hoarder</title>
+        <title>Pixel Hoarder Social</title>
     </head>
     <body>
 
@@ -11,34 +11,21 @@
             <h1>PIXEL HOARDER</h1>
             <p>Welcome <span id="username">user</span>!</p>
             <nav>
-                <h3>Menu</h3>
                 <menu>
+                    <li><a href="game.html">Return to Game</a></li>
                     <li><a href="index.html">Logout</a></li>
-                    <li><a href="social.html">Social</a></li>
             </nav>
+
             <hr />
-            <p>You currently have <span id="pixel-count">0</span> pixels.</p>
         </header>
 
         <main>
-            <!-- Pixel Clicking Area -->
-            <div id="canvas" style="width:500px; height:500px; border:1px solid black;">
-                 <label for="blue-pixel">Click the pixel: </label>
-                 <button id="blue-pixel">
-                    <svg width="50" height="50">
-                        <rect x="0" y="0" width="50" height="50" fill="blue" />
-                    </svg>
-                </button>
-            </div>
-            <!-- Shop Area -->
-             <div id="shop" style="width:500px; height:250px; border:1px solid black;">
-                <h3>Pixel Shop</h3>
-                <menu>
-                    <li> Pixel Miner (Generate passive pixel income): <span><button id="pixel-miner">BUY</button></span></li>
-                    <li> Better Pixels (they're just better): <span><button id="better-pixels">BUY</button></span></li>
-                    <li> Some other upgrade: <span><button id="other-upgrades">BUY</button></span></li>
-                </menu>
-             </div>
+            <h2>High Scores</h2>
+            <ol id="high-scores-list">
+                <li>Joe - 5000 pixels</li>
+                <li>Jo - 4500 pixels</li>
+                <li>Joh - 4000 pixels</li>
+            </ol>
         </main>
         <footer>
             <hr />

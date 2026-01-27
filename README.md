@@ -58,10 +58,10 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [x] **HTML pages** - I did not complete this part of the deliverable.
-- [x] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [x] **Links** - I did not complete this part of the deliverable.
-- [x] **Text** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - I made HTML bases for Login, Register, Game, and Social pages.
+- [x] **Proper HTML element usage** - I used proper HTML element usage (as far as I'm aware hopefully).
+- [x] **Links** - I included links to navigate to other pages as well as to the Github repository.
+- [x] **Text** - I used several instances of text being displayed to the pages.
 - [x] **3rd party API placeholder** - I did not complete this part of the deliverable.
 - [x] **Images** - I did not complete this part of the deliverable.
 - [x] **Login placeholder** - I did not complete this part of the deliverable.

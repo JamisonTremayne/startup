@@ -3,42 +3,25 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Pixel Hoarder Registration</title>
+        <title>Pixel Hoarder</title>
     </head>
     <body>
 
         <header>
             <h1>PIXEL HOARDER</h1>
+            <p>Welcome <span id="username">user</span>!</p>
+            <nav>
+                <h3>Menu</h3>
+                <menu>
+                    <li><a href="index.html">Logout</a></li>
+                    <li><a href="social.html">Social</a></li>
+            </nav>
             <hr />
+            <p>You currently have <span id="pixel-count">0</span> pixels.</p>
         </header>
 
         <main>
-            <h2>Register</h2>
-            <form action="game.html" method="get">
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required />
-                </div>
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username" required />
-                </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required />
-                </div>
-                <div>
-                    <button type="submit">Login</button>
-                </div>
-            </form>
-            <nav>
-                <h3>Other Options</h3>
-                <menu>
-                    <li>Already have an account? <a href="index.html">Login instead.</a></li>
-                    <li><a href="game.html">Play as Guest</a></li>
-                    <li><a href="social.html">See Social Page</a></li>
-                </menu>
-            </nav>
+            
         </main>
         <footer>
             <hr />

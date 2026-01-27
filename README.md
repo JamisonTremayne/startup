@@ -62,11 +62,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Proper HTML element usage** - I used proper HTML element usage (as far as I'm aware hopefully).
 - [x] **Links** - I included links to navigate to other pages as well as to the Github repository.
 - [x] **Text** - I used several instances of text being displayed to the pages.
-- [x] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [x] **Images** - I did not complete this part of the deliverable.
-- [x] **Login placeholder** - I did not complete this part of the deliverable.
-- [x] **DB data placeholder** - I did not complete this part of the deliverable.
-- [x] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **3rd party API placeholder** - I included a place for a random quote generator during the game, although I might change this idea when we come to it later.
+- [x] **Images** - I included the main title of the game as an image.
+- [x] **Login placeholder** - I made a login placeholder page and form, as well as one for registration.
+- [x] **DB data placeholder** - I include buttons for login and registration that can update the database with user information, as well as include references to the player's pixel count, which would also be stored there.
+- [x] **WebSocket placeholder** - I included a Social Page which currently is set up to show the top high-scores of players and update realtime, but the social page could also potentially include other things.
 
 ## 🚀 CSS deliverable
 

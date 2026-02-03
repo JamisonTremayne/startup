@@ -7,6 +7,9 @@ body {
   color: #e0eaec;
   margin: 0;
   padding: 0;
+
+  animation: color-shift 20s infinite;
+  animation-timing-function: ease-in-out;
 }
 
 header {
@@ -55,4 +58,18 @@ h1, h2, h3, h4, h5, h6 {
     footer {
         display: none;
     }
+}
+
+@keyframes color-shift {
+    from { background-color: hsl(260, 50%, 16%); }
+    10% { background-color: hsl(272, 50%, 16%); }
+    20% { background-color: hsl(284, 50%, 16%); }
+    30% { background-color: hsl(296, 50%, 16%); }
+    40% { background-color: hsl(284, 50%, 16%); }
+    50% { background-color: hsl(272, 50%, 16%); }
+    60% { background-color: hsl(260, 50%, 16%); }
+    70% { background-color: hsl(248, 50%, 16%); }
+    80% { background-color: hsl(236, 50%, 16%); }
+    90% { background-color: hsl(248, 50%, 16%); }
+    to { background-color: hsl(260, 50%, 16%); }
 }

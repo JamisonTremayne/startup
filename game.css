@@ -91,14 +91,18 @@ nav > ul {
 .buy-button {
     background-color: #fde184;
     color: black;
-    padding: 2px 8px;
+    padding: 2px 32px;
+    border: #a1a1a1 solid;
     border-radius: 8px;
 }
 
 .buy-button:hover {
     background-color: #947e38;
+    border: #565550 solid;
 }
 
 .buy-button:active {
     background-color: #fff5d4;
+    color: #c1b9a5;
+    border: #fffef7 solid;
 }

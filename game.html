@@ -4,11 +4,16 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Pixel Hoarder</title>
+        <link rel="stylesheet" href="main.css" />
     </head>
     <body>
 
         <header>
             <img src="pixel_hoarder_title.png" alt="Pixel Hoarder Title" width="500"/>
+            <hr />
+        </header>
+
+        <main>
             <p>Welcome <span id="username">user</span>!</p>
             <nav>
                 <h3>Menu</h3>
@@ -19,9 +24,7 @@
             <p>Random Quote: "Pixels are very lovely or something." -Me </p>
             <hr />
             <p>You currently have <span id="pixel-count">0</span> pixels.</p>
-        </header>
 
-        <main>
             <!-- Pixel Clicking Area -->
             <div id="canvas" style="width:500px; height:500px; border:1px solid black;">
                  <label for="blue-pixel">Click the pixel: </label>

@@ -1,0 +1,25 @@
+.login-register, .login-options {
+    width: 40%;
+    padding: 1% 8%;
+    border: rgba(90, 45, 182, 0.326) solid;
+    border-radius: 50px;
+    margin: auto;
+    background-color: #2a1a4d;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+}
+
+menu {
+    list-style-type: square;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style-position: inside;
+    padding: 0;
+}

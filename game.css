@@ -1,0 +1,12 @@
+nav {
+    background-color: #19082d;
+    margin: 0 0 100px 0;
+    padding: 16px 4%;
+}
+
+nav > ul {
+    display: flex;
+    flex: 1;
+    gap: 4%;
+    align-items: center;
+}

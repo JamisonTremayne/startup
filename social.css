@@ -1,3 +1,9 @@
+nav {
+    background-color: #19082d;
+    margin: 0 0 100px 0;
+    padding: 16px 4%;
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr 3fr 2fr;
@@ -16,7 +22,7 @@
 }
 
 #high-scores {
-    margin: auto;
+    margin: auto auto 100px auto;
     text-align: center;
     background-color: #380345;
     padding: 1% 5%;

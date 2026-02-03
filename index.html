@@ -6,6 +6,7 @@
         <title>Pixel Hoarder Login</title>
         <link rel="stylesheet" href="main.css" />
         <link rel="stylesheet" href="login.css" />
+        <link href="/src/style.css" rel="stylesheet" />
     </head>
     <body>
 
@@ -20,14 +21,27 @@
                 <form action="game.html" method="get">
                     <div>
                         <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" placeholder="Enter your username" required />
+                        <input class="w-full px-4 py-2 rounded-lg bg-purple-900 text-white
+                            border border-purple-600
+                            focus:outline-none focus:ring-2 focus:ring-purple-400
+                            placeholder-purple-300"
+                            type="text" id="username" name="username" placeholder="Enter your username" required />
                     </div>
                     <div>
                         <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+                        <input class="w-full px-4 py-2 rounded-lg bg-purple-900 text-white
+                            border border-purple-600
+                            focus:outline-none focus:ring-2 focus:ring-purple-400
+                            placeholder-purple-300"
+                            type="password" id="password" name="password" placeholder="Enter your password" required />
                     </div>
                     <div>
-                        <button type="submit">Login</button>
+                        <button class="w-full mt-4 py-2 rounded-lg
+                            bg-purple-600 hover:bg-purple-500
+                            text-white font-semibold
+                            transition duration-200
+                            focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        type="submit">Login</button>
                     </div>
                 </form>
             </div>

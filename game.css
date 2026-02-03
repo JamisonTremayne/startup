@@ -31,3 +31,35 @@ nav > ul {
 #pixel-count {
     color: #ffd89a;
 }
+
+#game-area {
+    height: 500px;
+    width: 90%;
+    border: #4543ca solid;
+    background-color: #07112e;
+    margin: auto;
+    padding: 40px;
+    display: flex;
+    flex: 1;
+    align-self: center;
+    align-items: center;
+}
+
+#shop {
+    width: 90%; 
+    border: #4543ca solid;
+    background-color: #162c6c;
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    flex: 1;
+    align-self: center;
+}
+
+#blue-pixel {
+    margin: 10px;
+}
+
+#blue-pixel:active {
+    padding: 10px;
+}

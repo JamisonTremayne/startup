@@ -5,21 +5,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Pixel Hoarder</title>
         <link rel="stylesheet" href="main.css" />
+        <link rel="stylesheet" href="game.css" />
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>
 
         <header>
-            <img src="pixel_hoarder_title.png" alt="Pixel Hoarder Title" width="500"/>
+            <img src="pixel_hoarder_title.png" alt="Pixel Hoarder Title" class="mx-auto" width="500"/>
             <hr />
         </header>
 
         <main>
-            <p>Welcome <span id="username">user</span>!</p>
             <nav>
-                <h3>Menu</h3>
-                <menu>
+                <ul>
+                    <li><div>Welcome <span id="username">user</span>!</div></li>
                     <li><a href="index.html">Logout</a></li>
-                    <li><a href="social.html">Social</a></li>
+                    <li><a href="social.html">Social Page</a></li>
+                </ul>
             </nav>
             <p>Random Quote: "Pixels are very lovely or something." -Me </p>
             <hr />

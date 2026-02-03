@@ -20,7 +20,7 @@ nav > ul {
   text-align: left;
 }
 
-#grid-start > div {
+.grid-start > div {
     background-color: #220b21;
     padding: 10px;
     border: rgb(113, 18, 137) solid;

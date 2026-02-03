@@ -41,7 +41,6 @@ nav > ul {
     padding: 40px;
     display: flex;
     flex: 1;
-    align-self: center;
     align-items: center;
 }
 
@@ -51,9 +50,9 @@ nav > ul {
     background-color: #162c6c;
     margin: auto;
     padding: 20px;
-    display: flex;
-    flex: 1;
-    align-self: center;
+    /* display: flex;
+    flex: 1; */
+    text-align: center;
 }
 
 #blue-pixel {
@@ -62,4 +61,44 @@ nav > ul {
 
 #blue-pixel:active {
     padding: 10px;
+}
+
+#shop-title {
+    font-size: 32px;
+    text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 5fr 1fr 1fr;
+  padding: 10px;
+  margin: auto;
+  text-align: left;
+}
+
+.grid-start > div {
+    background-color: #226279;
+    padding: 20px;
+    border: rgb(18, 70, 137) solid;
+    border-radius: 10px;
+    margin: 20px auto;
+}
+
+.grid-start > div > div {
+    padding: 0 36px;
+}
+
+.buy-button {
+    background-color: #fde184;
+    color: black;
+    padding: 2px 8px;
+    border-radius: 8px;
+}
+
+.buy-button:hover {
+    background-color: #947e38;
+}
+
+.buy-button:active {
+    background-color: #fff5d4;
 }

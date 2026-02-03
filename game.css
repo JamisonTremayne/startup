@@ -23,3 +23,11 @@ nav > ul {
         display: none;
     }
 }
+
+#pixel-display {
+    margin: 20px;
+}
+
+#pixel-count {
+    color: #ffd89a;
+}

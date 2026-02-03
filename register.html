@@ -10,8 +10,8 @@
     </head>
     <body>
 
-        <header>
-            <img src="pixel_hoarder_title.png" alt="Pixel Hoarder Title" width="500"/>
+        <header >
+            <img src="pixel_hoarder_title.png" alt="Pixel Hoarder Title" class="mx-auto" width="500"/>
             <hr />
         </header>
 
@@ -20,19 +20,36 @@
                 <h2>Register</h2>
                 <form action="game.html" method="get">
                     <div>
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+                        <label for="email">Email Add. :</label>
+                        <input class="px-4 rounded-lg bg-purple-900 text-white
+                            border border-purple-600
+                            focus:outline-none focus:ring-2 focus:ring-purple-400
+                            placeholder-purple-300"
+                            type="email" id="email" name="email" placeholder="Enter your email" required />
                     </div>
                     <div>
                         <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" placeholder="Enter your username" required />
+                        <input class="px-4 rounded-lg bg-purple-900 text-white
+                            border border-purple-600
+                            focus:outline-none focus:ring-2 focus:ring-purple-400
+                            placeholder-purple-300"
+                            type="text" id="username" name="username" placeholder="Enter your username" required />
                     </div>
                     <div>
                         <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+                        <input class="px-4 rounded-lg bg-purple-900 text-white
+                            border border-purple-600
+                            focus:outline-none focus:ring-2 focus:ring-purple-400
+                            placeholder-purple-300"
+                            type="password" id="password" name="password" placeholder="Enter your password" required />
                     </div>
                     <div>
-                        <button type="submit">Register</button>
+                        <button class="w-full mt-4 rounded-lg
+                            bg-purple-600 hover:bg-purple-500
+                            text-white font-semibold
+                            transition duration-200
+                            focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        type="submit">Register</button>
                     </div>
                 </form>
             </div>
@@ -40,7 +57,7 @@
                 <h3>Other Options</h3>
                 <nav>
                     <ul>
-                        <li>Already have an account? <a href="index.html">Login instead.</a></li>
+                        <li> <span id="already-have-account">Have an account?</span> <a href="index.html">Login instead.</a></li>
                         <li><a href="game.html">Play as Guest</a></li>
                         <li><a href="social.html">See Social Page</a></li>
                     </ul>

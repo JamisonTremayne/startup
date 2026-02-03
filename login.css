@@ -1,6 +1,6 @@
 .login-register, .login-options {
     width: 40%;
-    padding: 1% 8%;
+    padding: 1% 4%;
     border: rgba(90, 45, 182, 0.326) solid;
     border-radius: 50px;
     margin: 2% auto;
@@ -15,6 +15,14 @@
 
 li {
     list-style-position: inside;
-    list-style-type: square;
+    list-style-type: none;
     padding: 0;
+}
+
+form div {
+    margin: 1.5%;
+}
+
+#already-have-account {
+    font-size: 16px;
 }

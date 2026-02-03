@@ -5,16 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Pixel Hoarder Social</title>
         <link rel="stylesheet" href="main.css" />
+        <link rel="stylesheet" href="social.css" />
     </head>
     <body>
 
         <header>
             <img src="pixel_hoarder_title.png" alt="Pixel Hoarder Title" width="500"/>
             <p>Welcome <span id="username">user</span>!</p>
-            <nav>
-                <menu>
-                    <li><a href="game.html">Return to Game</a></li>
-                    <li><a href="index.html">Logout</a></li>
+            <nav class="bg-purple-800 text-white px-6 py-4">
+                <ul class="flex gap-6 items-center">
+                    <li>
+                    <a href="index.html" class="hover:text-purple-300">Logout</a>
+                    </li>
+                    <li>
+                    <a href="game.html" class="hover:text-purple-300">Return to Game</a>
+                    </li>
+                </ul>
             </nav>
 
             <hr />

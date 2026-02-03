@@ -8,11 +8,12 @@
         <link rel="stylesheet" href="main.css" />
         <link rel="stylesheet" href="login.css" />
         <script type="module" src="/src/main.jsx"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>
 
-        <header>
-            <img src="pixel_hoarder_title.png" alt="Pixel Hoarder Title" width="500"/>
+        <header >
+            <img src="pixel_hoarder_title.png" alt="Pixel Hoarder Title" class="mx-auto" width="500"/>
             <hr />
         </header>
 
@@ -22,7 +23,7 @@
                 <form action="game.html" method="get">
                     <div>
                         <label for="username">Username:</label>
-                        <input class="w-full px-4 py-2 rounded-lg bg-purple-900 text-white
+                        <input class="w-full px-4 rounded-lg bg-purple-900 text-white
                             border border-purple-600
                             focus:outline-none focus:ring-2 focus:ring-purple-400
                             placeholder-purple-300"
@@ -30,14 +31,14 @@
                     </div>
                     <div>
                         <label for="password">Password:</label>
-                        <input class="w-full px-4 py-2 rounded-lg bg-purple-900 text-white
+                        <input class="w-full px-4 rounded-lg bg-purple-900 text-white
                             border border-purple-600
                             focus:outline-none focus:ring-2 focus:ring-purple-400
                             placeholder-purple-300"
                             type="password" id="password" name="password" placeholder="Enter your password" required />
                     </div>
                     <div>
-                        <button class="w-full mt-4 py-2 rounded-lg
+                        <button class="w-full mt-4 rounded-lg
                             bg-purple-600 hover:bg-purple-500
                             text-white font-semibold
                             transition duration-200

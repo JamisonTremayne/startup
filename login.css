@@ -13,13 +13,8 @@
     text-align: center;
 }
 
-ul, menu {
-    list-style-type: square;
-    padding: 0;
-    margin: 0;
-}
-
 li {
     list-style-position: inside;
+    list-style-type: square;
     padding: 0;
 }

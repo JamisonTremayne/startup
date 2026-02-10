@@ -7,7 +7,7 @@ export function Login() {
     <main>
       <div className="login-register">
         <h1>Login</h1>
-        <form action="game.html" method="get">
+        <form action="game" method="get">
           <div>
             <label htmlFor="username">Username:</label>
             <input className="px-4 rounded-lg bg-purple-900 text-white
@@ -38,9 +38,9 @@ export function Login() {
         <h3>Other Options</h3>
         <nav>
           <ul>
-            <li><NavLink to="register.html">Register an Account</NavLink></li>
-            <li><NavLink to="game.html">Play as Guest</NavLink></li>
-            <li><NavLink to="social.html">See Social Page</NavLink></li>
+            <li><NavLink to="register">Register an Account</NavLink></li>
+            <li><NavLink to="game">Play as Guest</NavLink></li>
+            <li><NavLink to="social">See Social Page</NavLink></li>
           </ul>
         </nav>
       </div>

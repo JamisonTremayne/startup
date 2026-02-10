@@ -11,7 +11,7 @@ import { Social } from './social/social';
 export default function App() {
   return (
     <BrowserRouter>
-        <div className="body">
+        <div>
             <header>
                 <img src="pixel_hoarder_title.png" alt="Pixel Hoarder Title" className="mx-auto" width="500"/>
                 <hr />

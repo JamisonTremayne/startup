@@ -19,8 +19,8 @@ export default function App() {
 
             <Routes>
                 <Route path='/' element={<Login />} exact />
-                <Route path='/game' element={<Game />} />
                 <Route path='/register' element={<Register />} />
+                <Route path='/game' element={<Game />} />
                 <Route path='/social' element={<Social />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
@@ -28,7 +28,7 @@ export default function App() {
             <footer>
                 <hr />
                 <p>Author: Jamison Tremayne</p>
-                <NavLink href="https://github.com/JamisonTremayne/startup">Github Link</NavLink>
+                <NavLink to="https://github.com/JamisonTremayne/startup">Github Link</NavLink>
             </footer>
         </div>
     </BrowserRouter>

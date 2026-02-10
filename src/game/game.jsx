@@ -5,7 +5,7 @@ import './game.css';
 export function Game() {
   return (
           <main>
-            <nav>
+            <nav className="menu-nav">
                 <ul>
                     <li><div>Welcome <span id="username">user</span>!</div></li>
                     <li><NavLink to="/">Logout</NavLink></li>
@@ -27,18 +27,18 @@ export function Game() {
 
              <div id="shop">
                 <p id="shop-title">Pixel Shop</p>
-                <section className="grid-start">
-                    <div className="grid row">
+                <section className="shop-start">
+                    <div className="shop-row">
                         <div>Pixel Miner (Generate passive pixel income):</div>
                         <div>100 px</div>
                         <div><button className="buy-button" id="pixel-miner">BUY</button></div>
                     </div>
-                    <div className="grid row">
+                    <div className="shop-row">
                         <div>Better Pixels (they're just better):</div>
                         <div>2.0k px</div>
                         <div><button className="buy-button" id="better-pixels">BUY</button></div>
                     </div>
-                    <div className="grid row"> 
+                    <div className="shop-row"> 
                         <div>Some other upgrade:</div>
                         <div>1.562b px</div>
                         <div><button className="buy-button" id="other-upgrades">BUY</button></div>

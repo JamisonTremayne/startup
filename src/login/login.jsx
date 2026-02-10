@@ -9,7 +9,7 @@ export function Login() {
         <h1>Login</h1>
         <form action="game" method="get">
           <div>
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="username">Username: </label>
             <input className="px-4 rounded-lg bg-purple-900 text-white
                           border border-purple-600
                           focus:outline-none focus:ring-2 focus:ring-purple-400
@@ -17,7 +17,7 @@ export function Login() {
                           type="text" id="username" name="username" placeholder="Enter your username" required />
           </div>
           <div>
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Password: </label>
             <input className="px-4 rounded-lg bg-purple-900 text-white
                           border border-purple-600
                           focus:outline-none focus:ring-2 focus:ring-purple-400

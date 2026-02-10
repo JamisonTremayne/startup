@@ -15,7 +15,7 @@ nav > ul {
   display: grid;
   grid-template-columns: 1fr 3fr 2fr;
   padding: 10px;
-  width: 75%;
+  width: 88%;
   margin: auto;
   text-align: left;
 }

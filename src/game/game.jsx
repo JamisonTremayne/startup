@@ -1,6 +1,6 @@
 import React from 'react';
-import './game.css';
 import { NavLink } from 'react-router-dom';
+import './game.css';
 
 export function Game() {
   return (

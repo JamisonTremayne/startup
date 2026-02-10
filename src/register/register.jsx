@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import '../login/login.css';
 
 export function Register() {
   return (
@@ -8,7 +9,7 @@ export function Register() {
                 <h2>Register</h2>
                 <form action="game" method="get">
                     <div>
-                        <label htmlFor="email">Email Add. :</label>
+                        <label htmlFor="email">Email Add. : </label>
                         <input className="px-4 rounded-lg bg-purple-900 text-white
                             border border-purple-600
                             focus:outline-none focus:ring-2 focus:ring-purple-400
@@ -16,7 +17,7 @@ export function Register() {
                             type="email" id="email" name="email" placeholder="Enter your email" required />
                     </div>
                     <div>
-                        <label htmlFor="username">Username:</label>
+                        <label htmlFor="username">Username: </label>
                         <input className="px-4 rounded-lg bg-purple-900 text-white
                             border border-purple-600
                             focus:outline-none focus:ring-2 focus:ring-purple-400
@@ -24,7 +25,7 @@ export function Register() {
                             type="text" id="username" name="username" placeholder="Enter your username" required />
                     </div>
                     <div>
-                        <label htmlFor="password">Password:</label>
+                        <label htmlFor="password">Password: </label>
                         <input className="px-4 rounded-lg bg-purple-900 text-white
                             border border-purple-600
                             focus:outline-none focus:ring-2 focus:ring-purple-400

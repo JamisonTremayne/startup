@@ -2,6 +2,11 @@ import React from 'react';
 // import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
 import './app.css';
 
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { Login } from './login/login';
+import { Game } from './game/game';
+import { Register } from './register/register';
+import { Social } from './social/social';
 
 export default function App() {
   return (

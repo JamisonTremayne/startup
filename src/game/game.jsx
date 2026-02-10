@@ -9,7 +9,7 @@ export function Game() {
                 <ul>
                     <li><div>Welcome <span id="username">user</span>!</div></li>
                     <li><NavLink to="/">Logout</NavLink></li>
-                    <li><NavLink to="social">Social Page</NavLink></li>
+                    <li><NavLink to="/social">Social Page</NavLink></li>
                 </ul>
             </nav>
             <div id="random-quote">Random Quote: "Pixels are very lovely or something." -Me </div>

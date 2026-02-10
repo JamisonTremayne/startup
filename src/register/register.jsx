@@ -46,8 +46,8 @@ export function Register() {
                 <nav>
                     <ul>
                         <li> <span id="already-have-account">Have an account?</span> <NavLink to="/">Login instead.</NavLink></li>
-                        <li><NavLink to="game">Play as Guest</NavLink></li>
-                        <li><NavLink to="social">See Social Page</NavLink></li>
+                        <li><NavLink to="/game">Play as Guest</NavLink></li>
+                        <li><NavLink to="/social">See Social Page</NavLink></li>
                     </ul>
                 </nav>
             </div>

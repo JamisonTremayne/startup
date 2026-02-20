@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './game.css';
 
 export function Game() {
+    
   return (
           <main>
             <nav className="menu-nav">

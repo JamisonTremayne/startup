@@ -4,10 +4,41 @@ import { Login } from './login/login';
 import { Register } from './register/register';
 import { Game } from './game/game';
 import { Social } from './social/social';
+import { UserData } from './userData.js';
+import { saveUserData, loadUserData } from './saveSystem.js';
 import './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
 
 export default function App() {
+    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+    const [userData, setUserData] = React.useState(loadUserData(userName));
+
+    React.useEffect(() => { // Every 30 seconds, autosave the user data.
+        const interval = setInterval(() => {
+            if (userData) {
+                saveUserData(userData);
+            }
+        }, 30000);
+        return () => clearInterval(interval);
+    }, [userData]);
+
+    React.useEffect(() => { // Auto-increment pixels based on Miners every second.
+        const interval = setInterval(() => {
+            if (userData) {
+                const gainedRedPixels = userData.upgrades.redPixelMiner;
+                const gainedGreenPixels = userData.upgrades.greenPixelMiner;
+                const gainedBluePixels = userData.upgrades.bluePixelMiner;
+
+                userData.incrementPixel('red', gainedRedPixels);
+                userData.incrementPixel('green', gainedGreenPixels);
+                userData.incrementPixel('blue', gainedBluePixels);
+
+                setUserData({ ...userData });
+            }
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [userData]);
+
   return (
     <BrowserRouter>
         <div>

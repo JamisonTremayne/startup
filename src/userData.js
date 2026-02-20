@@ -22,6 +22,12 @@ export class UserData {
         this.version = 1; // Was recommended by AI, so I will include it to be safe.
     }
 
+    incrementPixel(color, amount) {
+        if (this.pixels[color] !== undefined) {
+            this.pixels[color] += amount;
+        }
+    }
+
     updateTimeStamp() {
         this.timeStamp = Date.now();
     }

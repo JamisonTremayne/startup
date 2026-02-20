@@ -32,9 +32,9 @@ function compareTimeStamps(userData) {
     const gainedGreenPixels = elapsedTimeInSeconds * userData.upgrades.greenPixelMiner;
     const gainedBluePixels = elapsedTimeInSeconds * userData.upgrades.bluePixelMiner;
 
-    userData.pixels.red += gainedRedPixels;
-    userData.pixels.green += gainedGreenPixels;
-    userData.pixels.blue += gainedBluePixels;
+    userData.incrementPixel('red', gainedRedPixels);
+    userData.incrementPixel('green', gainedGreenPixels);
+    userData.incrementPixel('blue', gainedBluePixels);
 
     userData.updateTimeStamp();
 }

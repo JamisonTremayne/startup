@@ -1,12 +1,11 @@
 import React from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
-import './app.css';
-
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Register } from './register/register';
 import { Game } from './game/game';
 import { Social } from './social/social';
+import './app.css';
+// import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
 
 export default function App() {
   return (

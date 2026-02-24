@@ -14,7 +14,11 @@ export function Game(props) {
     }
 
     function getColorRatio(r_px, g_px, b_px) {
-
+        const total = r_px + g_px + b_px;
+        const red_ratio = r_px / total;
+        const green_ratio = g_px / total;
+        const blue_ratio = b_px / total;
+        return getColor(Math.floor(red_ratio * 255), Math.floor(green_ratio * 255), Math.floor(blue_ratio * 255));
     }
 
     React.useEffect(() => {

@@ -1,34 +1,52 @@
-export class UserData {
-    constructor(userName) {
-        this.userName = userName;
+export function createUserData(userName) {
+    return {
+        userName,
 
-        this.pixels = {
+        pixels: {
             red: 0,
             green: 0,
             blue: 0
+        },
+
+        upgrades: {
+            redPixelUpgrade: 0,
+            greenPixelUpgrade: 0,
+            bluePixelUpgrade: 0,
+            redPixelMiner: 0,
+            greenPixelMiner: 0,
+            bluePixelMiner: 0,
+            hoardCapacity: 0
+        },
+
+        timeStamp: Date.now(),
+        version: 1
+    };
+}
+
+export function incrementPixel(data, color, amount) {
+    return {
+        ...data,
+        pixels: {
+            ...data.pixels,
+            [color]: data.pixels[color] + amount
         }
+    };
+}
 
-        this.upgrades = {           // Object with all possible upgrades and their levels.
-            "redPixelUpgrade": 0,
-            "greenPixelUpgrade": 0,
-            "bluePixelUpgrade": 0,
-            "redPixelMiner": 0,     // For now, each level of miners will produce 1 pixel per second.
-            "greenPixelMiner": 0,
-            "bluePixelMiner": 0,
-            "hoardCapacity": 0
+export function applyMinerProduction(data, seconds) {
+    return {
+        ...data,
+        pixels: {
+            red: data.pixels.red + data.upgrades.redPixelMiner * seconds,
+            green: data.pixels.green + data.upgrades.greenPixelMiner * seconds,
+            blue: data.pixels.blue + data.upgrades.bluePixelMiner * seconds
         }
+    };
+}
 
-        this.timeStamp = Date.now();    // Used to calculate offline progress.
-        this.version = 1; // Was recommended by AI, so I will include it to be safe.
-    }
-
-    incrementPixel(color, amount) {
-        if (this.pixels[color] !== undefined) {
-            this.pixels[color] += amount;
-        }
-    }
-
-    updateTimeStamp() {
-        this.timeStamp = Date.now();
-    }
+export function updateTimeStamp(data) {
+    return {
+        ...data,
+        timeStamp: Date.now()
+    };
 }

@@ -4,7 +4,7 @@ import { Login } from './login/login';
 import { Register } from './register/register';
 import { Game } from './game/game';
 import { Social } from './social/social';
-import { UserData } from './userData.js';
+import { incrementPixel, applyMinerProduction } from './userData.js';
 import { saveUserData, loadUserData } from './saveSystem.js';
 import './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
@@ -25,15 +25,7 @@ export default function App() {
     React.useEffect(() => { // Auto-increment pixels based on Miners every second.
         const interval = setInterval(() => {
             if (userData) {
-                const gainedRedPixels = userData.upgrades.redPixelMiner;
-                const gainedGreenPixels = userData.upgrades.greenPixelMiner;
-                const gainedBluePixels = userData.upgrades.bluePixelMiner;
-
-                userData.incrementPixel('red', gainedRedPixels);
-                userData.incrementPixel('green', gainedGreenPixels);
-                userData.incrementPixel('blue', gainedBluePixels);
-
-                setUserData({ ...userData });
+                setUserData(prev => applyMinerProduction(prev, 1));
             }
         }, 1000);
         return () => clearInterval(interval);
@@ -50,7 +42,7 @@ export default function App() {
             <Routes>
                 <Route path='/' element={<Login />} exact />
                 <Route path='/register' element={<Register />} />
-                <Route path='/game' element={<Game />} />
+                <Route path='/game' element={<Game userData={userData} />} />
                 <Route path='/social' element={<Social />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>

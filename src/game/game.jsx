@@ -2,10 +2,12 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './game.css';
 
-export function Game() {
+export function Game(props) {
 
+    const userData = props.userData;
     const [quote, setQuote] = React.useState("");
     const [quoteAuthor, setQuoteAuthor] = React.useState("");
+    const [pixels, setPixels] = React.useState(userData.pixels);
 
     React.useEffect(() => {
         setQuote("Pixels are very lovely or something.");
@@ -23,7 +25,18 @@ export function Game() {
             </nav>
             <div id="random-quote">Random Quote: "{quote}" -{quoteAuthor} </div>
             <hr />
-            <div id="pixel-display">You currently have <span id="pixel-count">0</span> pixels.</div>
+            <div id="pixel-display">
+                <div id="red-pixels">
+                    Red px  : {pixels.red}
+                </div>
+                <div id="green-pixels">
+                    Green px: {pixels.green}
+                </div>
+                <div id="blue-pixels">
+                    Blue px : {pixels.blue}
+                </div>
+                You currently have <span id="pixel-count">0</span> pixels.
+            </div>
 
             <div id="game-area">
                  <div> Click the pixel </div>

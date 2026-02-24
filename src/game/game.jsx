@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './game.css';
 import { incrementPixel } from '../userData.js'
-import { UpgradeData, getUpgradeList } from './upgrade.js'
+import { UpgradeData, getUpgradeList, getUpgradeCost } from './upgrade.js'
 
 export function Game(props) {
 
@@ -49,6 +49,19 @@ export function Game(props) {
         else if (color === 'blue') upgradeExpo = 2 ** userData.upgrades.bluePixelUpgrade;
         const amount = 2 ** upgradeExpo;
         setUserData(prev => incrementPixel(prev, color, amount));
+    }
+
+    function handleBuyUpgrade(upgradeData) {
+        const cost = getUpgradeCost(upgradeData.name);
+        if (cost.r <= pixels.red &&
+            cost.g <= pixels.green &&
+            cost.b <= pixels.blue && 
+            !upgradeData.maxed) {
+                buyUpgrade(upgradeData.name, cost.r, cost.g, cost.b);
+            }
+        else {
+            // TODO
+        }
     }
 
     function buyUpgrade(upgrade, cost_r, cost_g, cost_b) {
@@ -104,7 +117,22 @@ export function Game(props) {
     }
 
     function displayUpgradeData(upgradeData) {
-
+        return (
+            <div class="shop-row">
+                <div>{upgradeData.name}</div>
+                <div>{displayPixels(
+                    upgradeData.cost_r, 
+                    upgradeData.cost_g,
+                    upgradeData.cost_b)}
+                </div>
+                <div>
+                    <button 
+                    className="buy-button" 
+                    onClick={() => handleBuyUpgrade(upgradeData)}>BUY
+                    </button>
+                </div>
+            </div>
+        );
     }
     
   return (

@@ -88,7 +88,7 @@ function getUpgradeData(upgrade, level) {
     return upgradeData;
 }
 
-function getUpgradeCost(upgrade, level) {
+export function getUpgradeCost(upgrade, level) {
     const upgradeIndex = getUpgradeIndex(upgrade);
     switch (upgradeIndex) {
         case 0: {

@@ -9,6 +9,8 @@ export function createUserData(userName) {
         },
 
         upgrades: {
+            greenPixel: 0,
+            redPixel: 0,
             redPixelUpgrade: 0,
             greenPixelUpgrade: 0,
             bluePixelUpgrade: 0,

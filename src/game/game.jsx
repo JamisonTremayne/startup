@@ -44,15 +44,15 @@ export function Game(props) {
 
     function handlePixelClick(color) {
         let upgradeExpo = 0;
-        if (color === 'red') upgradeExpo = 2 ** userData.upgrades.redPixelUpgrade;
-        else if (color === 'green') upgradeExpo = 2 ** userData.upgrades.greenPixelUpgrade;
-        else if (color === 'blue') upgradeExpo = 2 ** userData.upgrades.bluePixelUpgrade;
+        if (color === 'red') upgradeExpo = userData.upgrades.redPixelUpgrade;
+        else if (color === 'green') upgradeExpo = userData.upgrades.greenPixelUpgrade;
+        else if (color === 'blue') upgradeExpo = userData.upgrades.bluePixelUpgrade;
         const amount = 2 ** upgradeExpo;
         setUserData(prev => incrementPixel(prev, color, amount));
     }
 
     function handleBuyUpgrade(upgradeData) {
-        const cost = getUpgradeCost(upgradeData.name);
+        const cost = upgradeData.cost;
         if (cost.r <= pixels.red &&
             cost.g <= pixels.green &&
             cost.b <= pixels.blue && 
@@ -81,7 +81,7 @@ export function Game(props) {
         });
     }
 
-    function displayPixels(r_px, g_px, b_px) {
+    function ColoredPixels(r_px, g_px, b_px) {
         return (
             <div className="pixels">
                 <div className="pixel-row">
@@ -112,18 +112,14 @@ export function Game(props) {
         );
     }
 
-    function displayUpgradeShop() {
-
-    }
-
-    function displayUpgradeData(upgradeData) {
+    function UpgradeEntry(upgradeData) {
         return (
-            <div class="shop-row">
-                <div>{upgradeData.name}</div>
-                <div>{displayPixels(
-                    upgradeData.cost_r, 
-                    upgradeData.cost_g,
-                    upgradeData.cost_b)}
+            <div className="shop-row">
+                <div>{upgradeData.name} - ( lvl {upgradeData.level} )</div>
+                <div>Cost{ColoredPixels(
+                    upgradeData.cost.r, 
+                    upgradeData.cost.g,
+                    upgradeData.cost.b)}
                 </div>
                 <div>
                     <button 
@@ -134,6 +130,8 @@ export function Game(props) {
             </div>
         );
     }
+
+    const upgradeList = getUpgradeList(userData);
     
   return (
           <main>
@@ -147,7 +145,7 @@ export function Game(props) {
             <div id="random-quote">Random Quote: "{quote}" -{quoteAuthor} </div>
             <hr />
             <div id="pixel-display">
-                <div>{displayPixels(
+                <div>{ColoredPixels(
                     formatNumber(pixels.red),
                     formatNumber(pixels.green),
                     formatNumber(pixels.blue)
@@ -165,7 +163,6 @@ export function Game(props) {
                     </svg>
                 </div>
             </div>
-
             <div id="game-area">
                  <div> Click the pixel </div>
                  <button id="blue-pixel" onClick={() => handlePixelClick('blue')}>
@@ -174,25 +171,15 @@ export function Game(props) {
                     </svg>
                 </button>
             </div>
-
-             <div id="shop">
+            <div id="shop">
                 <p id="shop-title">Pixel Shop</p>
                 <section className="shop-start">
-                    <div className="shop-row">
-                        <div>Pixel Miner (Generate passive pixel income):</div>
-                        <div>100 px</div>
-                        <div><button className="buy-button" id="pixel-miner">BUY</button></div>
-                    </div>
-                    <div className="shop-row">
-                        <div>Better Pixels (they're just better):</div>
-                        <div>2.0k px</div>
-                        <div><button className="buy-button" id="better-pixels">BUY</button></div>
-                    </div>
-                    <div className="shop-row"> 
-                        <div>Some other upgrade:</div>
-                        <div>1.562b px</div>
-                        <div><button className="buy-button" id="other-upgrades">BUY</button></div>
-                    </div>
+                    {upgradeList.map(upgrade => (
+                        <UpgradeEntry
+                            key={upgrade.name}
+                            {...upgrade}
+                        />
+                    ))}
                 </section>
              </div>
         </main>

@@ -78,6 +78,7 @@ export function getUpgradeList(data) {
 
         return Number(a.maxed) - Number(b.maxed);
     });
+    return list;
 }
 
 function getUpgradeData(upgrade, level) {
@@ -110,7 +111,7 @@ export function getUpgradeCost(upgrade, level) {
                 const r_cost = Math.round(100 * (2.2 ** level));
                 const g_cost = Math.max(Math.round(50 * (1.6 ** level) - 50), 0);
                 const b_cost = Math.max(Math.round(50 * (1.6 ** level) - 50), 0);
-                return { r_cost, g_cost, b_cost };
+                return { r: r_cost, g: g_cost, b: b_cost };
             } else {
                 return maxedCost;
             }
@@ -120,7 +121,7 @@ export function getUpgradeCost(upgrade, level) {
                 const r_cost = Math.max(Math.round(50 * (1.6 ** level) - 128), 0);
                 const g_cost = Math.round(100 * (2.2 ** level));
                 const b_cost = Math.max(Math.round(50 * (1.6 ** level) - 50), 0);
-                return { r_cost, g_cost, b_cost };
+                return { r: r_cost, g: g_cost, b: b_cost };
             } else {
                 return maxedCost;
             }
@@ -130,7 +131,7 @@ export function getUpgradeCost(upgrade, level) {
                 const r_cost = Math.max(Math.round(50 * (1.6 ** level) - 328), 0);
                 const g_cost = Math.max(Math.round(50 * (1.6 ** level) - 128), 0);
                 const b_cost = Math.round(100 * (2.2 ** level));
-                return { r_cost, g_cost, b_cost };
+                return { r: r_cost, g: g_cost, b: b_cost };
             } else {
                 return maxedCost;
             }
@@ -140,7 +141,7 @@ export function getUpgradeCost(upgrade, level) {
                 const r_cost = Math.round(50 * (1.4 ** level) + 450);
                 const g_cost = Math.max(Math.round(50 * (1.4 ** level) - 98), 0);
                 const b_cost = Math.max(Math.round(50 * (1.4 ** level) - 98), 0);
-                return { r_cost, g_cost, b_cost };
+                return { r: r_cost, g: g_cost, b: b_cost };
             } else {
                 return maxedCost;
             }
@@ -150,7 +151,7 @@ export function getUpgradeCost(upgrade, level) {
                 const r_cost = Math.max(Math.round(50 * (1.4 ** level) - 192), 0);
                 const g_cost = Math.round(50 * (1.4 ** level) + 200);
                 const b_cost = Math.max(Math.round(50 * (1.4 ** level) - 98), 0);
-                return { r_cost, g_cost, b_cost };
+                return { r: r_cost, g: g_cost, b: b_cost };
             } else {
                 return maxedCost;
             }
@@ -160,7 +161,7 @@ export function getUpgradeCost(upgrade, level) {
                 const r_cost = Math.max(Math.round(50 * (1.4 ** level) - 376), 0);
                 const g_cost = Math.max(Math.round(50 * (1.4 ** level) - 192), 0);
                 const b_cost = Math.round(50 * (1.4 ** level));
-                return { r_cost, g_cost, b_cost };
+                return { r: r_cost, g: g_cost, b: b_cost };
             } else {
                 return maxedCost;
             }
@@ -170,7 +171,7 @@ export function getUpgradeCost(upgrade, level) {
                 const r_cost = Math.max(Math.round(100 * (2 ** level) - 1600), 0);
                 const g_cost = Math.max(Math.round(100 * (2 ** level) - 400), 0);
                 const b_cost = Math.round(100 * (2 ** level));
-                return { r_cost, g_cost, b_cost };
+                return { r: r_cost, g: g_cost, b: b_cost };
             } else {
                 return maxedCost;
             }

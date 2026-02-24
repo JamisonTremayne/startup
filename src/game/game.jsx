@@ -1,13 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './game.css';
+import { incrementPixel } from '../userData.js'
 
 export function Game(props) {
 
     const userData = props.userData;
+    const pixels = userData.pixels;
+    const setUserData = props.setUserData;
     const [quote, setQuote] = React.useState("");
     const [quoteAuthor, setQuoteAuthor] = React.useState("");
-    const [pixels, setPixels] = React.useState(userData.pixels);
+
 
     function getColor(r, g, b) {
         return "rgb(" + r + "," + g + "," + b + ")";
@@ -21,10 +24,23 @@ export function Game(props) {
         return getColor(Math.floor(red_ratio * 255), Math.floor(green_ratio * 255), Math.floor(blue_ratio * 255));
     }
 
+    function formatNumber(number) {
+        
+    }
+
     React.useEffect(() => {
         setQuote("Pixels are very lovely or something.");
         setQuoteAuthor("Me");
     }, [])
+
+    function handlePixelClick(color) {
+        let upgradeExpo = 0;
+        if (color == 'red') upgradeExpo = userData.upgrades.redPixelUpgrade;
+        else if (color == 'green') upgradeExpo = userData.upgrades.greenPixelUpgrade;
+        else if (color == 'blue') upgradeExpo = userData.upgrades.bluePixelUpgrade;
+        const amount = 2 ** upgradeExpo;
+        setUserData(prev => incrementPixel(prev, color, amount));
+    }
     
   return (
           <main>
@@ -39,9 +55,9 @@ export function Game(props) {
             <hr />
             <div id="pixel-display">
                 <div className="pixel-numbers">
-                    <div id="red-pixels">{pixels.red}</div>
-                    <div id="green-pixels">{pixels.green}</div>
-                    <div id="blue-pixels">{pixels.blue}</div>
+                    <div className="red-pixels">{pixels.red}</div>
+                    <div className="green-pixels">{pixels.green}</div>
+                    <div className="blue-pixels">{pixels.blue}</div>
                 </div>
 
                 <div className="pixel-square">
@@ -59,7 +75,7 @@ export function Game(props) {
 
             <div id="game-area">
                  <div> Click the pixel </div>
-                 <button id="blue-pixel">
+                 <button id="blue-pixel" onClick={() => handlePixelClick('blue')}>
                     <svg width="50" height="50">
                         <rect x="0" y="0" width="50" height="50" fill={getColor(0,0,255)} />
                     </svg>

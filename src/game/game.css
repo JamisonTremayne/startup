@@ -44,15 +44,15 @@
     flex-shrink: 0;
 }
 
-#red-pixels {
+.red-pixels {
     color: rgb(255, 80, 80);
 }
 
-#green-pixels {
+.green-pixels {
     color: rgb(80, 255, 80);
 }
 
-#blue-pixels {
+.blue-pixels {
     color: rgb(80, 80, 255);
 }
 

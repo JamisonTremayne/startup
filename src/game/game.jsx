@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './game.css';
 import { incrementPixel } from '../userData.js'
+import { UpgradeData, getUpgradeList } from './upgrade.js'
 
 export function Game(props) {
 
@@ -43,14 +44,29 @@ export function Game(props) {
 
     function handlePixelClick(color) {
         let upgradeExpo = 0;
-        if (color === 'red') upgradeExpo = userData.upgrades.redPixelUpgrade;
-        else if (color === 'green') upgradeExpo = userData.upgrades.greenPixelUpgrade;
-        else if (color === 'blue') upgradeExpo = userData.upgrades.bluePixelUpgrade;
+        if (color === 'red') upgradeExpo = 2 ** userData.upgrades.redPixelUpgrade;
+        else if (color === 'green') upgradeExpo = 2 ** userData.upgrades.greenPixelUpgrade;
+        else if (color === 'blue') upgradeExpo = 2 ** userData.upgrades.bluePixelUpgrade;
         const amount = 2 ** upgradeExpo;
         setUserData(prev => incrementPixel(prev, color, amount));
     }
 
-    // function buyUpgrade(data, )
+    function buyUpgrade(upgrade, cost_r, cost_g, cost_b) {
+        setUserData(prev => {
+            return {
+                ...prev,
+                pixels: {
+                    red: prev.pixels.red - cost_r,
+                    green: prev.pixels.green - cost_g,
+                    blue: prev.pixels.blue - cost_b
+                },
+                upgrades: {
+                    ...prev.upgrades,
+                    [upgrade]: prev.upgrades[upgrade] + 1
+                }
+            };
+        });
+    }
 
     function displayPixels(r_px, g_px, b_px) {
         return (
@@ -81,6 +97,14 @@ export function Game(props) {
                 </div>
             </div>
         );
+    }
+
+    function displayUpgradeShop() {
+
+    }
+
+    function displayUpgradeData(upgradeData) {
+
     }
     
   return (

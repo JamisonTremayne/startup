@@ -29,7 +29,7 @@ export default function App() {
             }
         }, 1000);
         return () => clearInterval(interval);
-    }, [userData]);
+    }, []);
 
   return (
     <BrowserRouter>

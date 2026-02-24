@@ -9,6 +9,14 @@ export function Game(props) {
     const [quoteAuthor, setQuoteAuthor] = React.useState("");
     const [pixels, setPixels] = React.useState(userData.pixels);
 
+    function getColor(r, g, b) {
+        return "rgb(" + r + "," + g + "," + b + ")";
+    }
+
+    function getColorRatio(r_px, g_px, b_px) {
+
+    }
+
     React.useEffect(() => {
         setQuote("Pixels are very lovely or something.");
         setQuoteAuthor("Me");
@@ -27,13 +35,13 @@ export function Game(props) {
             <hr />
             <div id="pixel-display">
                 <div id="red-pixels">
-                    Red px  : {pixels.red}
+                    {pixels.red}
                 </div>
                 <div id="green-pixels">
-                    Green px: {pixels.green}
+                    {pixels.green}      
                 </div>
                 <div id="blue-pixels">
-                    Blue px : {pixels.blue}
+                    {pixels.blue}
                 </div>
                 You currently have <span id="pixel-count">0</span> pixels.
             </div>
@@ -42,7 +50,7 @@ export function Game(props) {
                  <div> Click the pixel </div>
                  <button id="blue-pixel">
                     <svg width="50" height="50">
-                        <rect x="0" y="0" width="50" height="50" fill="blue" />
+                        <rect x="0" y="0" width="50" height="50" fill={getColor(0,0,255)} />
                     </svg>
                 </button>
             </div>

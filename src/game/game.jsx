@@ -14,7 +14,7 @@ export function Game(props) {
     }
 
     function getColorRatio(r_px, g_px, b_px) {
-        const total = r_px + g_px + b_px;
+        const total = Math.max(r_px + g_px + b_px, 255);
         const red_ratio = r_px / total;
         const green_ratio = g_px / total;
         const blue_ratio = b_px / total;
@@ -38,16 +38,23 @@ export function Game(props) {
             <div id="random-quote">Random Quote: "{quote}" -{quoteAuthor} </div>
             <hr />
             <div id="pixel-display">
-                <div id="red-pixels">
-                    {pixels.red}
+                <div className="pixel-numbers">
+                    <div id="red-pixels">{pixels.red}</div>
+                    <div id="green-pixels">{pixels.green}</div>
+                    <div id="blue-pixels">{pixels.blue}</div>
                 </div>
-                <div id="green-pixels">
-                    {pixels.green}      
+
+                <div className="pixel-square">
+                    <svg width="40" height="40">
+                        <rect
+                            x="0"
+                            y="0"
+                            width="40"
+                            height="40"
+                            fill={getColorRatio(pixels.red, pixels.green, pixels.blue)}
+                        />
+                    </svg>
                 </div>
-                <div id="blue-pixels">
-                    {pixels.blue}
-                </div>
-                You currently have <span id="pixel-count">0</span> pixels.
             </div>
 
             <div id="game-area">

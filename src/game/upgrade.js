@@ -13,8 +13,9 @@ const upgradeList = [
 const maxedCost = { r: -1, g: -1, b: -1 };
 
 export class UpgradeData {
-    constructor(name, level, maxed, cost_r, cost_g, cost_b) {
+    constructor(name, src, level, maxed, cost_r, cost_g, cost_b) {
         this.name=name;
+        this.src=src;
         this.level=level;
         this.maxed=maxed;
         this.cost = {
@@ -85,7 +86,7 @@ function getUpgradeData(upgrade, level) {
     const upgradeName = getUpgradeName(upgrade);
     const cost = getUpgradeCost(upgrade, level);
     const maxed = cost === maxedCost;
-    const upgradeData = new UpgradeData(upgradeName, level, maxed, cost.r, cost.g, cost.b);
+    const upgradeData = new UpgradeData(upgradeName, upgrade, level, maxed, cost.r, cost.g, cost.b);
     return upgradeData;
 }
 

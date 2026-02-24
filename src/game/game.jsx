@@ -57,7 +57,7 @@ export function Game(props) {
             cost.g <= pixels.green &&
             cost.b <= pixels.blue && 
             !upgradeData.maxed) {
-                buyUpgrade(upgradeData.name, cost.r, cost.g, cost.b);
+                buyUpgrade(upgradeData.src, cost.r, cost.g, cost.b);
             }
         else {
             // TODO

@@ -3,6 +3,14 @@ import { NavLink } from 'react-router-dom';
 import './game.css';
 
 export function Game() {
+
+    const [quote, setQuote] = React.useState("");
+    const [quoteAuthor, setQuoteAuthor] = React.useState("");
+
+    React.useEffect(() => {
+        setQuote("Pixels are very lovely or something.");
+        setQuoteAuthor("Me");
+    }, [])
     
   return (
           <main>
@@ -13,7 +21,7 @@ export function Game() {
                     <li><NavLink to="/social">Social Page</NavLink></li>
                 </ul>
             </nav>
-            <div id="random-quote">Random Quote: "Pixels are very lovely or something." -Me </div>
+            <div id="random-quote">Random Quote: "{quote}" -{quoteAuthor} </div>
             <hr />
             <div id="pixel-display">You currently have <span id="pixel-count">0</span> pixels.</div>
 

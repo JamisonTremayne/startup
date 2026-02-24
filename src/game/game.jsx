@@ -43,12 +43,14 @@ export function Game(props) {
 
     function handlePixelClick(color) {
         let upgradeExpo = 0;
-        if (color == 'red') upgradeExpo = userData.upgrades.redPixelUpgrade;
-        else if (color == 'green') upgradeExpo = userData.upgrades.greenPixelUpgrade;
-        else if (color == 'blue') upgradeExpo = userData.upgrades.bluePixelUpgrade;
+        if (color === 'red') upgradeExpo = userData.upgrades.redPixelUpgrade;
+        else if (color === 'green') upgradeExpo = userData.upgrades.greenPixelUpgrade;
+        else if (color === 'blue') upgradeExpo = userData.upgrades.bluePixelUpgrade;
         const amount = 2 ** upgradeExpo;
         setUserData(prev => incrementPixel(prev, color, amount));
     }
+
+    // function buyUpgrade(data, )
 
     function displayPixels(r_px, g_px, b_px) {
         return (

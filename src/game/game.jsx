@@ -25,7 +25,15 @@ export function Game(props) {
     }
 
     function formatNumber(number) {
-        
+        const abbrList = ['k', 'm', 'b', 't', 'q', 'Q']
+        let abbrIdx = -1;
+        while (number >= 1000.0) {
+            number /= 1000.0;
+            abbrIdx++;
+        }
+        const abbr = abbrIdx > -1? abbrList[abbrIdx]: '';
+        number = Math.round(number * 1000) / 1000.0;
+        return number + abbr;
     }
 
     React.useEffect(() => {
@@ -55,9 +63,9 @@ export function Game(props) {
             <hr />
             <div id="pixel-display">
                 <div className="pixel-numbers">
-                    <div className="red-pixels">{pixels.red}</div>
-                    <div className="green-pixels">{pixels.green}</div>
-                    <div className="blue-pixels">{pixels.blue}</div>
+                    <div className="red-pixels">{formatNumber(pixels.red)}</div>
+                    <div className="green-pixels">{formatNumber(pixels.green)}</div>
+                    <div className="blue-pixels">{formatNumber(pixels.blue)}</div>
                 </div>
 
                 <div className="pixel-square">

@@ -5,7 +5,7 @@ import { makeGuestAccount, makeAccount } from '../register/account.js';
 import { verifyAccount } from './authentication.js';
 import { createUserData } from '../userData.js';
 
-export function Login({ account, setAccount }) {
+export function Login({ account, setAccount, setUserData }) {
 
   const [inputUserName, setInputUserName] = React.useState('');
   const [inputPassword, setInputPassword] = React.useState('');
@@ -13,7 +13,7 @@ export function Login({ account, setAccount }) {
   const guestAccount = JSON.parse(guest);
 
   function handleGuest() {
-    if (guestAccount === '') {
+    if (!guestAccount) {
       makeGuestAccount();
     } else {
       loginRequest(guestAccount);
@@ -23,12 +23,15 @@ export function Login({ account, setAccount }) {
   function loginRequest(requestAccount) {
     if (verifyAccount(requestAccount.userName, requestAccount.password, requestAccount.email)) {
       // Normally, get user data for the account in the database.
+      console.log("Account verified");
+      localStorage.setItem('account', JSON.stringify(requestAccount));
+      setUserData(() => requestAccount.userData);
       setAccount(() => requestAccount);
     } else {
       const newAccount = makeAccount(
         requestAccount.userName, 
         requestAccount.password, 
-        requestAccount.email);
+        requestAccount.email, false);
       setAccount(() => newAccount);
     }
   }

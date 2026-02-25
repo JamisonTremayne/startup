@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import '../login/login.css';
 import { makeAccount, makeGuestAccount } from './account.js';
 
-export function Register({ account, setAccount }) {
+export function Register({ account, setAccount, setUserData }) {
     const [inputUserName, setInputUserName] = React.useState('');
     const [inputPassword, setInputPassword] = React.useState('');
     const [inputEmail, setInputEmail] = React.useState('');
@@ -14,7 +14,9 @@ export function Register({ account, setAccount }) {
         if (guestAccount === '') {
           makeGuestAccount();
         } else {
-          loginRequest(guestAccount);
+            localStorage.setItem('account', JSON.stringify(guestAccount));
+            setUserData(() => guestAccount.userData);
+            setAccount(() => guestAccount);
         }
     }
 

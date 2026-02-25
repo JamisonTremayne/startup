@@ -1,17 +1,17 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './social.css';
+import { logout } from '../register/account.js';
 
-export function Social({ setAccount }) {
+export function Social({ userData, account, setUserData, setAccount }) {
     function handleLogout() {
-        localStorage.removeItem('account');
-        setAccount(() => '');
+        logout(userData, account, setUserData, setAccount);
     }
   return (
           <main>
             <nav className="menu-nav">
                 <ul>
-                    <li><div>Welcome <span id="username">user</span>!</div></li>
+                    <li><div>Welcome <span id="username">{userData.userName}</span>!</div></li>
                     <li><NavLink to="/" onClick={handleLogout}>Logout</NavLink></li>
                     <li><NavLink to="/">Return to Game</NavLink></li>
                 </ul>

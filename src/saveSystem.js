@@ -6,6 +6,7 @@ export function saveUserData(userData) {
 }
 
 export function loadUserData(userName) {
+    if (!userName) return '';
     const rawData = localStorage.getItem(userName);
     if (!rawData) {
         return createUserData(userName);

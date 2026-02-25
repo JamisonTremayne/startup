@@ -3,12 +3,15 @@ import { NavLink } from 'react-router-dom';
 import './game.css';
 import { incrementPixel } from '../userData.js'
 import { UpgradeData, getUpgradeList, getUpgradeCost } from './upgrade.js'
+import { logout } from '../register/account.js';
+
 
 export function Game(props) {
 
     const userData = props.userData;
     const pixels = userData.pixels;
     const setUserData = props.setUserData;
+    const account = props.account;
     const setAccount = props.setAccount;
     const [quote, setQuote] = React.useState("");
     const [quoteAuthor, setQuoteAuthor] = React.useState("");
@@ -44,8 +47,7 @@ export function Game(props) {
     }, [])
 
     function handleLogout() {
-        localStorage.removeItem('account');
-        setAccount(() => '');
+        logout(userData, account, setUserData, setAccount);
     }
 
     function handlePixelClick(color) {
@@ -177,7 +179,7 @@ export function Game(props) {
           <main>
             <nav className="menu-nav">
                 <ul>
-                    <li><div>Welcome <span id="username">user</span>!</div></li>
+                    <li><div>Welcome <span id="username">{userData.userName}</span>!</div></li>
                     <li><NavLink to="/" onClick={handleLogout}>Logout</NavLink></li>
                     <li><NavLink to="/social">Social Page</NavLink></li>
                 </ul>

@@ -11,6 +11,10 @@
     align-items: center;
 }
 
+#username {
+    color: #86ffc3;
+}
+
 #random-quote {
     text-align: center;
     color: #e0eaec74;

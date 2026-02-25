@@ -39,5 +39,17 @@ export function updateUserData(account, userData) {
 
 export function saveAccount(account) {
     // Normally would also update a database, but for now this works.
-    localStorage.setItem('account', JSON.stringify(account));
+    const json = JSON.stringify(account);
+    localStorage.setItem('account', json);
+    if (account.password === '' && account.email === '') {
+        localStorage.setItem('guest_account', json);
+    }
+}
+
+export function logout(userData, account, setUserData, setAccount) {
+    saveUserData(userData);
+    saveAccount(updateUserData(account, userData));
+    localStorage.removeItem('account');
+    setUserData(() => '');
+    setAccount(() => '');
 }

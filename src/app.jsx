@@ -10,7 +10,7 @@ import './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
 
 export default function App() {
-    const [account, setAccount] = React.useState(localStorage.getItem('account') || '');
+    const [account, setAccount] = React.useState(JSON.parse(localStorage.getItem('account')) || '');
     const userName = account.userName || '';
     const [userData, setUserData] = React.useState(loadUserData(userName));
 
@@ -47,9 +47,11 @@ export default function App() {
                             setAccount={setAccount} />
                             : <Game 
                             userData={userData}
-                            setUserData={setUserData} />} exact /> 
+                            setUserData={setUserData}
+                            setAccount={setAccount} />} exact /> 
                             
-                <Route path='/register' element={<Register />} />
+                <Route path='/register' element={<Register 
+                            setAccount={setAccount}/>} />
                 <Route path='/social' element={<Social />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>

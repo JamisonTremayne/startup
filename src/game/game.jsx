@@ -9,6 +9,7 @@ export function Game(props) {
     const userData = props.userData;
     const pixels = userData.pixels;
     const setUserData = props.setUserData;
+    const setAccount = props.setAccount;
     const [quote, setQuote] = React.useState("");
     const [quoteAuthor, setQuoteAuthor] = React.useState("");
 
@@ -41,6 +42,11 @@ export function Game(props) {
         setQuote("Pixels are very lovely or something.");
         setQuoteAuthor("Me");
     }, [])
+
+    function handleLogout() {
+        localStorage.removeItem('account');
+        setAccount(() => '');
+    }
 
     function handlePixelClick(color) {
         let upgradeExpo = 0;
@@ -172,7 +178,7 @@ export function Game(props) {
             <nav className="menu-nav">
                 <ul>
                     <li><div>Welcome <span id="username">user</span>!</div></li>
-                    <li><NavLink to="/">Logout</NavLink></li>
+                    <li><NavLink to="/" onClick={handleLogout}>Logout</NavLink></li>
                     <li><NavLink to="/social">Social Page</NavLink></li>
                 </ul>
             </nav>

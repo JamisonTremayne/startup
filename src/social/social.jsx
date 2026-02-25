@@ -2,14 +2,18 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './social.css';
 
-export function Social() {
+export function Social({ setAccount }) {
+    function handleLogout() {
+        localStorage.removeItem('account');
+        setAccount(() => '');
+    }
   return (
           <main>
             <nav className="menu-nav">
                 <ul>
                     <li><div>Welcome <span id="username">user</span>!</div></li>
-                    <li><NavLink to="/">Logout</NavLink></li>
-                    <li><NavLink to="/game">Return to Game</NavLink></li>
+                    <li><NavLink to="/" onClick={handleLogout}>Logout</NavLink></li>
+                    <li><NavLink to="/">Return to Game</NavLink></li>
                 </ul>
             </nav>
             <section id="high-scores">

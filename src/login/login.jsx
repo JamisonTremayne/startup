@@ -1,7 +1,7 @@
 import React from 'react';
 import './login.css';
 import { NavLink } from 'react-router-dom';
-import { Account, makeGuestAccount, makeAccount } from '../register/account.js';
+import { makeGuestAccount, makeAccount } from '../register/account.js';
 import { verifyAccount } from './authentication.js';
 import { createUserData } from '../userData.js';
 

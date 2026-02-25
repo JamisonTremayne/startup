@@ -1,18 +1,18 @@
 import { createUserData } from '../userData.js';
 import { saveUserData } from '../saveSystem.js';
 
-export class Account {
-    constructor(userName, password, email, userData) {
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-        this.userData = userData;
-    }
+export function createAccount(userName, password, email, userData) {
+    return {
+        userName,
+        password,
+        email,
+        userData
+    };
 }
 
 export function makeAccount(userName, password, email, isGuest) {
     const userData = createUserData(userName);
-    const account = new Account(userName, password, email, userData);
+    const account = createAccount(userName, password, email, userData);
     const json = JSON.stringify(account);
     if (isGuest) {
         localStorage.setItem('guest_account', json);
@@ -28,4 +28,16 @@ export function makeGuestAccount() {
     // but that can be added with databases
     const userName = 'Guest' + '';
     return makeAccount(userName, '', '', true);
+}
+
+export function updateUserData(account, userData) {
+    return {
+        ...account,
+        userData
+    };
+}
+
+export function saveAccount(account) {
+    // Normally would also update a database, but for now this works.
+    localStorage.setItem('account', JSON.stringify(account));
 }

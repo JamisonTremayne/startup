@@ -1,6 +1,4 @@
 
-import { Account } from '../register/account.js';
-
 export class AuthData {
     constructor(password, authToken) {
         this.password = password;

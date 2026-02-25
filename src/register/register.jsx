@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../login/login.css';
-import { Account, makeAccount, makeGuestAccount } from './account.js';
+import { makeAccount, makeGuestAccount } from './account.js';
 
 export function Register({ account, setAccount }) {
     const [inputUserName, setInputUserName] = React.useState('');

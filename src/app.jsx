@@ -6,6 +6,7 @@ import { Game } from './game/game';
 import { Social } from './social/social';
 import { applyMinerProduction } from './userData.js';
 import { saveUserData, loadUserData } from './saveSystem.js';
+import { updateUserData, saveAccount } from './register/account.js';
 import './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
 
@@ -14,14 +15,32 @@ export default function App() {
     const userName = account.userName || '';
     const [userData, setUserData] = React.useState(loadUserData(userName));
 
-    React.useEffect(() => { // Every 30 seconds, autosave the user data.
-        const interval = setInterval(() => {
-            if (userData) {
-                saveUserData(userData);
-            }
-        }, 30000);
-        return () => clearInterval(interval);
+    const userDataRef = React.useRef(userData);
+    const accountRef = React.useRef(account);
+
+    React.useEffect(() => {
+        userDataRef.current = userData;
     }, [userData]);
+
+    React.useEffect(() => {
+        accountRef.current = account;
+    }, [account]);
+
+    React.useEffect(() => {
+        const interval = setInterval(() => {
+            const currentUser = userDataRef.current;
+            const currentAccount = accountRef.current;
+
+            if (!currentUser) return;
+
+            saveUserData(currentUser);
+            saveAccount(updateUserData(currentAccount, currentUser));
+
+            console.log("Saving Game");
+        }, 30000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     React.useEffect(() => { // Auto-increment pixels based on Miners every second.
         const interval = setInterval(() => {

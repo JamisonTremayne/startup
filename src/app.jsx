@@ -4,7 +4,7 @@ import { Login } from './login/login';
 import { Register } from './register/register';
 import { Game } from './game/game';
 import { Social } from './social/social';
-import { incrementPixel, applyMinerProduction } from './userData.js';
+import { applyMinerProduction } from './userData.js';
 import { saveUserData, loadUserData } from './saveSystem.js';
 import './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.

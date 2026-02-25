@@ -85,11 +85,11 @@
     text-align: center;
 }
 
-#blue-pixel {
+.click-pixel {
     margin: 10px;
 }
 
-#blue-pixel:active {
+.click-pixel:active {
     padding: 10px;
 }
 

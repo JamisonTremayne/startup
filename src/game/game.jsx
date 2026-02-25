@@ -112,6 +112,24 @@ export function Game(props) {
         );
     }
 
+    function ClickPixel(colorObj) {
+        const color = colorObj.color;
+        let colorVal = getColor(255, 255, 255);
+        if (color === 'red') colorVal = getColor(255, 80, 80);
+        else if (color === 'green') colorVal = getColor(80, 255, 80);
+        else if (color === 'blue') colorVal = getColor(80, 80, 255);
+
+        return (
+            <div className="click-pixel">
+                <button onClick={() => handlePixelClick(color)}>
+                    <svg width="50" height="50">
+                        <rect x="0" y="0" width="50" height="50" fill={colorVal} />
+                    </svg>
+                </button>
+            </div>
+        );
+    }
+
     function UpgradeEntry(upgradeData) {
         return (
             <div className="shop-row">
@@ -132,6 +150,9 @@ export function Game(props) {
     }
 
     const upgradeList = getUpgradeList(userData);
+    let clickablePixels = ['blue'];
+    if (userData.upgrades.greenPixel) clickablePixels.push('green');
+    if (userData.upgrades.redPixel) clickablePixels.push('red');
     
   return (
           <main>
@@ -154,8 +175,6 @@ export function Game(props) {
                 <div className="pixel-square">
                     <svg width="40" height="40">
                         <rect
-                            x="0"
-                            y="0"
                             width="40"
                             height="40"
                             fill={getColorRatio(pixels.red, pixels.green, pixels.blue)}
@@ -165,11 +184,14 @@ export function Game(props) {
             </div>
             <div id="game-area">
                  <div> Click the pixel </div>
-                 <button id="blue-pixel" onClick={() => handlePixelClick('blue')}>
-                    <svg width="50" height="50">
-                        <rect x="0" y="0" width="50" height="50" fill={getColor(0,0,255)} />
-                    </svg>
-                </button>
+                 <div className='clickable-pixels'>
+                    {clickablePixels.map(pixel => (
+                        <ClickPixel 
+                            key={pixel}
+                            color={pixel}
+                        />
+                    ))}
+                 </div>
             </div>
             <div id="shop">
                 <p id="shop-title">Pixel Shop</p>

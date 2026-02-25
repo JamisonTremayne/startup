@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Navigate, NavLink, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, useNavigate, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Register } from './register/register';
 import { Game } from './game/game';
@@ -13,10 +13,6 @@ export default function App() {
     const [account, setAccount] = React.useState(localStorage.getItem('account') || '');
     const userName = account.userName || '';
     const [userData, setUserData] = React.useState(loadUserData(userName));
-
-    if (userName !== '') {
-        Navigate('/game');
-    }
 
     React.useEffect(() => { // Every 30 seconds, autosave the user data.
         const interval = setInterval(() => {
@@ -45,13 +41,15 @@ export default function App() {
             </header>
 
             <Routes>
-                <Route path='/' element={<Login
+                <Route path='/' element={
+                    !account ? <Login
                             account={account}
-                            setAccount={setAccount} />} exact />
-                <Route path='/register' element={<Register />} />
-                <Route path='/game' element={<Game 
+                            setAccount={setAccount} />
+                            : <Game 
                             userData={userData}
-                            setUserData={setUserData} />} />
+                            setUserData={setUserData} />} exact /> 
+                            
+                <Route path='/register' element={<Register />} />
                 <Route path='/social' element={<Social />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>

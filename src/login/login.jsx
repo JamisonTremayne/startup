@@ -9,8 +9,9 @@ export function Login({ account, setAccount }) {
 
   const [inputUserName, setInputUserName] = React.useState('');
   const [inputPassword, setInputPassword] = React.useState('');
-  const [guestAccount, setGuestAccount] = React.useState(localStorage.getItem('guest_account') || '');
-  
+  const [guest, setGuest] = React.useState(localStorage.getItem('guest_account') || '');
+  const guestAccount = JSON.parse(guest);
+
   function handleGuest() {
     if (guestAccount === '') {
       makeGuestAccount();
@@ -80,7 +81,7 @@ export function Login({ account, setAccount }) {
         <nav>
           <ul>
             <li><NavLink to="/register">Register an Account</NavLink></li>
-            <li><NavLink to="/game" onClick={handleGuest}>Play as Guest</NavLink></li>
+            <li><NavLink to="/" onClick={handleGuest}>Play as Guest</NavLink></li>
             <li><NavLink to="/social">See Social Page</NavLink></li>
           </ul>
         </nav>

@@ -7,6 +7,8 @@ export function Register({ account, setAccount }) {
     const [inputUserName, setInputUserName] = React.useState('');
     const [inputPassword, setInputPassword] = React.useState('');
     const [inputEmail, setInputEmail] = React.useState('');
+    const [guest, setGuest] = React.useState(localStorage.getItem('guest_account') || '');
+    const guestAccount = JSON.parse(guest);
 
     function handleGuest() {
         if (guestAccount === '') {
@@ -77,7 +79,7 @@ export function Register({ account, setAccount }) {
             <nav>
                 <ul>
                     <li> <span id="already-have-account">Have an account?</span> <NavLink to="/">Login instead.</NavLink></li>
-                    <li><NavLink to="/game" onClick={handleGuest}>Play as Guest</NavLink></li>
+                    <li><NavLink to="/" onClick={handleGuest}>Play as Guest</NavLink></li>
                     <li><NavLink to="/social">See Social Page</NavLink></li>
                 </ul>
             </nav>

@@ -131,22 +131,35 @@ export function Game(props) {
     }
 
     function UpgradeEntry(upgradeData) {
-        return (
-            <div className="shop-row">
-                <div>{upgradeData.name} - ( lvl {upgradeData.level} )</div>
-                <div>Cost{ColoredPixels(
-                    upgradeData.cost.r, 
-                    upgradeData.cost.g,
-                    upgradeData.cost.b)}
+        if (!upgradeData.maxed) {
+            return (
+                <div className="shop-row">
+                    <div>{upgradeData.name} - ( lvl {upgradeData.level} )</div>
+                    <div>Cost{ColoredPixels(
+                        upgradeData.cost.r, 
+                        upgradeData.cost.g,
+                        upgradeData.cost.b)}
+                    </div>
+                    <div>
+                        <button 
+                        className="buy-button" 
+                        onClick={() => handleBuyUpgrade(upgradeData)}>BUY
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <button 
-                    className="buy-button" 
-                    onClick={() => handleBuyUpgrade(upgradeData)}>BUY
-                    </button>
+            );
+        } else {
+            return (
+                <div className="shop-row-maxed">
+                    <div>{upgradeData.name} - ( lvl {upgradeData.level} )</div>
+                    <div>
+                        <button 
+                        className="maxed-button">MAXED
+                        </button>
+                    </div>
                 </div>
-            </div>
-        );
+            )
+        }
     }
 
     const upgradeList = getUpgradeList(userData);

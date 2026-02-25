@@ -98,21 +98,25 @@
     text-align: center;
 }
 
-.shop-row {
-  display: grid;
-  grid-template-columns: 5fr 1fr 1fr;
-  padding: 10px;
-  margin: auto;
-  text-align: left;
-  align-items: center;
-}
-
-.shop-start > div {
-    background-color: #2e3233;
+.shop-row, .shop-row-maxed {
+    display: grid;
+    grid-template-columns: 5fr 1fr 1fr;
     padding: 20px;
-    border: rgb(42, 59, 81) solid;
+    margin: auto;
+    text-align: left;
+    align-items: center;
     border-radius: 10px;
     margin: 20px auto;
+}
+
+.shop-row {
+    background-color: #2e3233;
+    border: rgb(42, 59, 81) solid;
+}
+
+.shop-row-maxed {
+    background-color: #2c2d2d;
+    border: rgb(41, 46, 53) solid;
 }
 
 .shop-start > div > div {
@@ -136,4 +140,12 @@
     background-color: #fff5d4;
     color: #c1b9a5;
     border: #fffef7 solid;
+}
+
+.maxed-button {
+    background-color: #494535;
+    color: #afafaf;
+    padding: 2px 32px;
+    border: #323232 solid;
+    border-radius: 8px;
 }

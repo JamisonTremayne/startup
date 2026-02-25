@@ -10,12 +10,7 @@ export class AuthData {
 
 // This function would normally include encryption and database requests, but for now this works
 export function verifyAccount(userName, password, email) {
-    let raw = '';
-    if (userName !== '') {
-        raw = localStorage.getItem('accountByName' || '');
-    } else if (email !== '') {
-        raw = localStorage.getItem('accountByEmail' || '');
-    } 
+    const raw = localStorage.getItem('account') || '';
 
     if (raw === '') {
         return false;

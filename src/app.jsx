@@ -10,7 +10,8 @@ import './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
 
 export default function App() {
-    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+    const [account, setAccount] = React.useState(localStorage.getItem('account') || '');
+    const userName = account.userName || '';
     const [userData, setUserData] = React.useState(loadUserData(userName));
 
     if (userName !== '') {
@@ -45,8 +46,8 @@ export default function App() {
 
             <Routes>
                 <Route path='/' element={<Login
-                            userData={userData}
-                            setUserData={setUserData} />} exact />
+                            account={account}
+                            setAccount={setAccount} />} exact />
                 <Route path='/register' element={<Register />} />
                 <Route path='/game' element={<Game 
                             userData={userData}

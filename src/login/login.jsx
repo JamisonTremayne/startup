@@ -1,15 +1,15 @@
 import React from 'react';
 import './login.css';
 import { NavLink } from 'react-router-dom';
-import { Account } from '../register/account.js';
+import { Account, makeGuestAccount, makeAccount } from '../register/account.js';
 import { verifyAccount } from './authentication.js';
 import { createUserData } from '../userData.js';
 
-export function Login({ userData, setUserData }) {
+export function Login({ account, setAccount }) {
 
   const [inputUserName, setInputUserName] = React.useState('');
   const [inputPassword, setInputPassword] = React.useState('');
-  const [guestAccount, setGuestAccount] = React.useState(localStorage.getItem('guestAccount') || '');
+  const [guestAccount, setGuestAccount] = React.useState(localStorage.getItem('guest_account') || '');
   
   function handleGuest() {
     if (guestAccount === '') {
@@ -19,10 +19,10 @@ export function Login({ userData, setUserData }) {
     }
   }
 
-  function loginRequest(account) {
-    if (verifyAccount(account)) {
+  function loginRequest(requestAccount) {
+    if (verifyAccount(requestAccount.userName, requestAccount.password, requestAccount.email)) {
       // Normally, get user data for the account in the database.
-      setUserData(() => new createUserData(account.userName))
+      setAccount(() => requestAccount);
     } else {
       // TO-DO
     }
@@ -31,17 +31,11 @@ export function Login({ userData, setUserData }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const account = getAccount(inputUserName);
     if (!account) {
       // TO-DO
       return;
     }
     loginRequest(account);
-  }
-
-  function getAccount(userName) {
-    // Currently not useful, but maybe once database is added.
-    return null;
   }
 
   return (

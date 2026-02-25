@@ -3,6 +3,11 @@ import './login.css';
 import { NavLink } from 'react-router-dom';
 
 export function Login() {
+  
+  function handleGuest() {
+
+  }
+
   return (
     <main>
       <div className="login-register">
@@ -39,7 +44,7 @@ export function Login() {
         <nav>
           <ul>
             <li><NavLink to="/register">Register an Account</NavLink></li>
-            <li><NavLink to="/game">Play as Guest</NavLink></li>
+            <li><NavLink to="/game" onClick={handleGuest}>Play as Guest</NavLink></li>
             <li><NavLink to="/social">See Social Page</NavLink></li>
           </ul>
         </nav>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Register } from './register/register';
 import { Game } from './game/game';
@@ -12,6 +12,11 @@ import './app.css';
 export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const [userData, setUserData] = React.useState(loadUserData(userName));
+    const [guestIndex, setGuestIndex] = React.useState(localStorage.getItem('guestIndex') || 0);
+
+    if (userName !== '') {
+        Navigate('/game');
+    }
 
     React.useEffect(() => { // Every 30 seconds, autosave the user data.
         const interval = setInterval(() => {

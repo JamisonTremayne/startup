@@ -1,20 +1,48 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../login/login.css';
+import { Account, makeAccount, makeGuestAccount } from './account.js';
 
-export function Register() {
+export function Register({ account, setAccount }) {
+    const [inputUserName, setInputUserName] = React.useState('');
+    const [inputPassword, setInputPassword] = React.useState('');
+    const [inputEmail, setInputEmail] = React.useState('');
+
+    function handleGuest() {
+        if (guestAccount === '') {
+          makeGuestAccount();
+        } else {
+          loginRequest(guestAccount);
+        }
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        registerRequest(inputUserName, inputPassword, inputEmail);
+    }
+
+    function registerRequest(userName, password, email) {
+        if (account.userName === userName || account.email === email) {
+            // TO-DO
+            return;
+        }
+        const newAccount = makeAccount(userName, password, email, false);
+        setAccount(() => newAccount);
+    }
+    
   return (
     <main>
         <div className="login-register">
             <h2>Register</h2>
-            <form action="game" method="get">
+            <form action="game" method="get" onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="email">Email Add. : </label>
                     <input className="px-4 rounded-lg bg-purple-900 text-white
                         border border-purple-600
                         focus:outline-none focus:ring-2 focus:ring-purple-400
                         placeholder-purple-300"
-                        type="email" id="email" name="email" placeholder="Enter your email" required />
+                        type="email" id="email" name="email" placeholder="Enter your email" required 
+                        onChange={(e) => setInputUserName(e.target.value)}/>
                 </div>
                 <div>
                     <label htmlFor="username">Username: </label>
@@ -22,7 +50,8 @@ export function Register() {
                         border border-purple-600
                         focus:outline-none focus:ring-2 focus:ring-purple-400
                         placeholder-purple-300"
-                        type="text" id="username" name="username" placeholder="Enter your username" required />
+                        type="text" id="username" name="username" placeholder="Enter your username" required 
+                        onChange={(e) => setInputPassword(e.target.value)}/>
                 </div>
                 <div>
                     <label htmlFor="password">Password: </label>
@@ -30,7 +59,8 @@ export function Register() {
                         border border-purple-600
                         focus:outline-none focus:ring-2 focus:ring-purple-400
                         placeholder-purple-300"
-                        type="password" id="password" name="password" placeholder="Enter your password" required />
+                        type="password" id="password" name="password" placeholder="Enter your password" required 
+                        onChange={(e) => setInputEmail(e.target.value)}/>
                 </div>
                 <div>
                     <button className="w-full mt-4 rounded-lg
@@ -47,7 +77,7 @@ export function Register() {
             <nav>
                 <ul>
                     <li> <span id="already-have-account">Have an account?</span> <NavLink to="/">Login instead.</NavLink></li>
-                    <li><NavLink to="/game">Play as Guest</NavLink></li>
+                    <li><NavLink to="/game" onClick={handleGuest}>Play as Guest</NavLink></li>
                     <li><NavLink to="/social">See Social Page</NavLink></li>
                 </ul>
             </nav>

@@ -24,7 +24,11 @@ export function Login({ account, setAccount }) {
       // Normally, get user data for the account in the database.
       setAccount(() => requestAccount);
     } else {
-      // TO-DO
+      const newAccount = makeAccount(
+        requestAccount.userName, 
+        requestAccount.password, 
+        requestAccount.email);
+      setAccount(() => newAccount);
     }
   }
 

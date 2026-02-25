@@ -12,7 +12,6 @@ import './app.css';
 export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const [userData, setUserData] = React.useState(loadUserData(userName));
-    const [guestIndex, setGuestIndex] = React.useState(localStorage.getItem('guestIndex') || 0);
 
     if (userName !== '') {
         Navigate('/game');
@@ -45,7 +44,9 @@ export default function App() {
             </header>
 
             <Routes>
-                <Route path='/' element={<Login />} exact />
+                <Route path='/' element={<Login
+                            userData={userData}
+                            setUserData={setUserData} />} exact />
                 <Route path='/register' element={<Register />} />
                 <Route path='/game' element={<Game 
                             userData={userData}

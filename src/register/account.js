@@ -50,6 +50,6 @@ export function logout(userData, account, setUserData, setAccount) {
     saveUserData(userData);
     saveAccount(updateUserData(account, userData));
     localStorage.removeItem('account');
-    setUserData(() => '');
-    setAccount(() => '');
+    setUserData(() => null);
+    setAccount(() => null);
 }

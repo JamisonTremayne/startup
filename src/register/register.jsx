@@ -15,7 +15,8 @@ export function Register({ account, setAccount, setUserData }) {
           makeGuestAccount();
         } else {
             localStorage.setItem('account', JSON.stringify(guestAccount));
-            setUserData(() => guestAccount.userData);
+            const loadedUserData = loadUserData(guestAccount.userName);
+            setUserData(() => loadedUserData);
             setAccount(() => guestAccount);
         }
     }

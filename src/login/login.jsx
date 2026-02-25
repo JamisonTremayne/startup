@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { makeGuestAccount, makeAccount } from '../register/account.js';
 import { verifyAccount } from './authentication.js';
 import { createUserData } from '../userData.js';
+import { loadUserData } from '../saveSystem.js';
 
 export function Login({ account, setAccount, setUserData }) {
 
@@ -25,7 +26,8 @@ export function Login({ account, setAccount, setUserData }) {
       // Normally, get user data for the account in the database.
       console.log("Account verified");
       localStorage.setItem('account', JSON.stringify(requestAccount));
-      setUserData(() => requestAccount.userData);
+      const loadedUserData = loadUserData(requestAccount.userName);
+      setUserData(() => loadedUserData);
       setAccount(() => requestAccount);
     } else {
       const newAccount = makeAccount(

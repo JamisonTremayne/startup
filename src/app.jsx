@@ -12,7 +12,7 @@ import './app.css';
 
 export default function App() {
     const [account, setAccount] = React.useState(JSON.parse(localStorage.getItem('account')) || '');
-    const userName = account.userName || '';
+    const userName = account ? account.userName || '' : '';
     const [userData, setUserData] = React.useState(loadUserData(userName));
 
     const userDataRef = React.useRef(userData);
@@ -43,10 +43,12 @@ export default function App() {
     }, []);
 
     React.useEffect(() => { // Auto-increment pixels based on Miners every second.
+        if (!userData) return;
+
         const interval = setInterval(() => {
-            if (userData) {
-                setUserData(prev => applyMinerProduction(prev, 1));
-            }
+            setUserData(prev => 
+                prev ? applyMinerProduction(prev, 1) : prev
+            );
         }, 1000);
         return () => clearInterval(interval);
     }, []);

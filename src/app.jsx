@@ -6,7 +6,7 @@ import { Game } from './game/game';
 import { Social } from './social/social';
 import { applyMinerProduction } from './userData.js';
 import { saveUserData, loadUserData } from './saveSystem.js';
-import { updateUserData, saveAccount } from './register/account.js';
+import { saveGame } from './register/account.js';
 import './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
 
@@ -33,10 +33,9 @@ export default function App() {
 
             if (!currentUser) return;
 
-            saveUserData(currentUser);
-            saveAccount(updateUserData(currentAccount, currentUser));
+            saveGame(currentUser, currentAccount);
+            console.log("Autosaving...");
 
-            console.log("Saving Game");
         }, 30000);
 
         return () => clearInterval(interval);

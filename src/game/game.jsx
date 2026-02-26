@@ -4,7 +4,7 @@ import './game.css';
 import { incrementPixel } from '../userData.js'
 import { UpgradeData, getUpgradeList, getUpgradeCost } from './upgrade.js'
 import { logout } from '../register/account.js';
-
+import { SaveButton } from '../save.jsx';
 
 export function Game(props) {
 
@@ -15,7 +15,7 @@ export function Game(props) {
     const setAccount = props.setAccount;
     const [quote, setQuote] = React.useState("");
     const [quoteAuthor, setQuoteAuthor] = React.useState("");
-
+    const capacity = getCapacity(userData.upgrades.hoardCapacity);
 
     function getColor(r, g, b) {
         return "rgb(" + r + "," + g + "," + b + ")";
@@ -41,6 +41,10 @@ export function Game(props) {
         return number + abbr;
     }
 
+    function getCapacity(level) {
+        return 256 * 2 ** level;
+    }
+
     React.useEffect(() => {
         setQuote("Pixels are very lovely or something.");
         setQuoteAuthor("Me");
@@ -60,15 +64,23 @@ export function Game(props) {
     }
 
     function handleBuyUpgrade(upgradeData) {
+        if (canBuyUpgrade(upgradeData)) {
+            const cost = upgradeData.cost;
+            buyUpgrade(upgradeData.src, cost.r, cost.g, cost.b);
+        } else {
+            // TODO
+        }
+    }
+
+    function canBuyUpgrade(upgradeData) {
         const cost = upgradeData.cost;
         if (cost.r <= pixels.red &&
             cost.g <= pixels.green &&
             cost.b <= pixels.blue && 
             !upgradeData.maxed) {
-                buyUpgrade(upgradeData.src, cost.r, cost.g, cost.b);
-            }
-        else {
-            // TODO
+                return true;
+        } else {
+            return false;
         }
     }
 
@@ -150,7 +162,7 @@ export function Game(props) {
                     </div>
                     <div>
                         <button 
-                        className="buy-button" 
+                        className={ canBuyUpgrade(upgradeData) ? "buy-button" : "buy-button-poor"} 
                         onClick={() => handleBuyUpgrade(upgradeData)}>BUY
                         </button>
                     </div>
@@ -177,13 +189,16 @@ export function Game(props) {
     
   return (
           <main>
-            <nav className="menu-nav">
-                <ul>
-                    <li><div>Welcome <span id="username">{userData.userName}</span>!</div></li>
-                    <li><NavLink to="/" onClick={handleLogout}>Logout</NavLink></li>
-                    <li><NavLink to="/social">Social Page</NavLink></li>
-                </ul>
-            </nav>
+            <div>
+                <nav className='menu-nav'>
+                    <ul>
+                        <li><div>Welcome <span id="username">{userData.userName}</span>!</div></li>
+                        <li><NavLink to="/" onClick={handleLogout}>Logout</NavLink></li>
+                        <li><NavLink to="/social">Social Page</NavLink></li>
+                        <li><SaveButton account={account} userData={userData} /></li>
+                    </ul>
+                </nav>
+            </div>
             <div id="random-quote">Random Quote: "{quote}" -{quoteAuthor} </div>
             <hr />
             <div id="pixel-display">

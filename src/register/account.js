@@ -75,9 +75,13 @@ export function findAccount(userName) {
     return null;
 }
 
-export function logout(userData, account, setUserData, setAccount) {
+export function saveGame(userData, account) {
     saveUserData(userData);
     saveAccount(updateUserData(account, userData));
+}
+
+export function logout(userData, account, setUserData, setAccount) {
+    saveGame(userData, account);
     localStorage.removeItem('account');
     setUserData(() => null);
     setAccount(() => null);

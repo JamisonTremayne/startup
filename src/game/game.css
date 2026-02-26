@@ -11,6 +11,26 @@
     align-items: center;
 }
 
+.menu-nav > ul > li:last-child {
+    margin-left: auto;
+}
+
+.save-button {
+    background-color: rgb(39, 148, 70);
+    color: rgb(255, 255, 255);
+    padding: 2px 24px;
+    border: #b8ffc4 solid;
+    border-radius: 8px;
+}
+
+.save-button:hover {
+    background-color: rgb(28, 102, 49);
+}
+
+.save-button:active {
+    background-color: rgb(61, 220, 106);
+}
+
 #username {
     color: #86ffc3;
 }
@@ -87,6 +107,7 @@
     /* display: flex;
     flex: 1; */
     text-align: center;
+    min-width: 650px;
 }
 
 .click-pixel {
@@ -129,6 +150,14 @@
 
 .buy-button {
     background-color: #fde184;
+    color: black;
+    padding: 2px 32px;
+    border: #a1a1a1 solid;
+    border-radius: 8px;
+}
+
+.buy-button-poor {
+    background-color: #bababa;
     color: black;
     padding: 2px 32px;
     border: #a1a1a1 solid;

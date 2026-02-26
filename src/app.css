@@ -74,3 +74,18 @@ h1, h2, h3, h4, h5, h6 {
     90% { background-color: hsl(248, 50%, 16%); }
     to { background-color: hsl(260, 50%, 16%); }
 }
+
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+}
+
+.toast.success { background-color: rgb(80, 120, 80); }
+.toast.error { background-color: rgb(120, 80, 80); }
+.toast.info { background-color: rgb(80, 80, 120); }

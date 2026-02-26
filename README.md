@@ -91,8 +91,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - I added functionality for all systems, or at least mocked them out if they weren't fully implemented. There is a mocked out Websocket functionality with random popup messages, mocked out authentication system that saves accounts to local storage, and mocked out saved progress also through local storage, but everything else is roughly fully functional. There are game mechanics that may want to continue to be fleshed out in the future.
+- [x] **Hooks** - I used hooks throughout the project, including state and effect hooks regularly to keep track of variables, update them, and use intervals. 
 
 ## 🚀 Service deliverable
 

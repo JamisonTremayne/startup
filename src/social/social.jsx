@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 import './social.css';
 import { logout } from '../utilities/account.js';
 
-export function Social({ userData, account, setUserData, setAccount }) {
+export function Social({ userData, account, setUserData, setAccount, setToast }) {
     function handleLogout() {
-        logout(userData, account, setUserData, setAccount);
+        logout(userData, account, setUserData, setAccount, setToast);
     }
   return (
           <main>

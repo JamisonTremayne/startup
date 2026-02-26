@@ -75,13 +75,17 @@ export function findAccount(userName) {
     return null;
 }
 
-export function saveGame(userData, account) {
+export function saveGame(userData, account, setToast) {
     saveUserData(userData);
     saveAccount(updateUserData(account, userData));
+    setToast({
+        message: 'Game Saved',
+        type: 'success'
+    });
 }
 
-export function logout(userData, account, setUserData, setAccount) {
-    saveGame(userData, account);
+export function logout(userData, account, setUserData, setAccount, setToast) {
+    saveGame(userData, account, setToast);
     localStorage.removeItem('account');
     setUserData(() => null);
     setAccount(() => null);

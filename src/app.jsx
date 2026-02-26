@@ -7,6 +7,7 @@ import { Social } from './social/social';
 import { applyMinerProduction } from './utilities/userData.js';
 import { saveUserData, loadUserData } from './utilities/saveSystem.js';
 import { saveGame } from './utilities/account.js';
+import { Toast } from './utilities/toast.jsx';
 import './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
 
@@ -14,6 +15,7 @@ export default function App() {
     const [account, setAccount] = React.useState(JSON.parse(localStorage.getItem('account')) || '');
     const userName = account ? account.userName || '' : '';
     const [userData, setUserData] = React.useState(loadUserData(userName));
+    const [toast, setToast] = React.useState(null);
 
     const userDataRef = React.useRef(userData);
     const accountRef = React.useRef(account);
@@ -33,7 +35,7 @@ export default function App() {
 
             if (!currentUser) return;
 
-            saveGame(currentUser, currentAccount);
+            saveGame(currentUser, currentAccount, setToast);
             console.log("Autosaving...");
 
         }, 30000);
@@ -50,6 +52,16 @@ export default function App() {
         }, 1000);
         return () => clearInterval(interval);
     }, []);
+
+    React.useEffect(() => { // Toast timeout 
+        if (!toast) return;
+
+        const timer = setTimeout(() => {
+            setToast(null);
+        }, 1500);
+
+        return () => clearTimeout(timer);
+    }, [toast]);
 
   return (
     <BrowserRouter>
@@ -69,7 +81,8 @@ export default function App() {
                             userData={userData}
                             setUserData={setUserData}
                             account={account}
-                            setAccount={setAccount} />} exact /> 
+                            setAccount={setAccount}
+                            setToast={setToast} />} exact /> 
                             
                 <Route path='/register' element={<Register 
                             account={account}
@@ -79,9 +92,12 @@ export default function App() {
                             userData={userData}
                             account={account}
                             setUserData={setUserData}
-                            setAccount={setAccount}/>} />
+                            setAccount={setAccount}
+                            setToast={setToast}/>} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
+
+            {toast && <Toast message={toast.message} type={toast.type} />}
 
             <footer>
                 <hr />

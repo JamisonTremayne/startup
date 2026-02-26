@@ -86,6 +86,14 @@
     color: rgb(80, 80, 255);
 }
 
+#capacity {
+    text-shadow:
+        -2px -2px 0 rgb(162, 162, 162),
+         2px -2px 0 rgb(162, 162, 162),
+        -2px  2px 0 rgb(162, 162, 162),
+         2px  2px 0 rgb(162, 162, 162);
+}
+
 #game-area {
     height: 500px;
     width: 90%;

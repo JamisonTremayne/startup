@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './game.css';
-import { incrementPixel } from '../userData.js'
+import { incrementPixel, getCapacity } from '../userData.js'
 import { UpgradeData, getUpgradeList, getUpgradeCost } from './upgrade.js'
 import { logout } from '../register/account.js';
 import { SaveButton } from '../save.jsx';
@@ -15,7 +15,6 @@ export function Game(props) {
     const setAccount = props.setAccount;
     const [quote, setQuote] = React.useState("");
     const [quoteAuthor, setQuoteAuthor] = React.useState("");
-    const capacity = getCapacity(userData.upgrades.hoardCapacity);
 
     function getColor(r, g, b) {
         return "rgb(" + r + "," + g + "," + b + ")";
@@ -41,14 +40,10 @@ export function Game(props) {
         return number + abbr;
     }
 
-    function getCapacity(level) {
-        return 256 * 2 ** level;
-    }
-
     React.useEffect(() => {
         setQuote("Pixels are very lovely or something.");
         setQuoteAuthor("Me");
-    }, [])
+    }, []);
 
     function handleLogout() {
         logout(userData, account, setUserData, setAccount);
@@ -216,6 +211,11 @@ export function Game(props) {
                             fill={getColorRatio(pixels.red, pixels.green, pixels.blue)}
                         />
                     </svg>
+                </div>
+                <div id='capacity'>
+                    <span style={{color: getColorRatio(pixels.red+80, pixels.green+80, pixels.blue+80)}}>
+                        Capacity: {getCapacity(userData.upgrades.hoardCapacity)}
+                    </span>
                 </div>
             </div>
             <div id="game-area">

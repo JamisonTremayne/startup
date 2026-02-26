@@ -1,7 +1,7 @@
 import React from 'react';
 import './login.css';
 import { NavLink } from 'react-router-dom';
-import { makeGuestAccount, makeAccount } from '../register/account.js';
+import { makeGuestAccount, findAccount } from '../register/account.js';
 import { verifyAccount } from './authentication.js';
 import { createUserData } from '../userData.js';
 import { loadUserData } from '../saveSystem.js';
@@ -11,41 +11,43 @@ export function Login({ account, setAccount, setUserData }) {
   const [inputUserName, setInputUserName] = React.useState('');
   const [inputPassword, setInputPassword] = React.useState('');
   const [guest, setGuest] = React.useState(localStorage.getItem('guest_account') || '');
+  const [loginFail, setLoginFail] = React.useState(false);
   const guestAccount = JSON.parse(guest);
 
   function handleGuest() {
     if (!guestAccount) {
       makeGuestAccount();
     } else {
-      loginRequest(guestAccount);
+      localStorage.setItem('account', JSON.stringify(guestAccount));
+      const loadedUserData = loadUserData(guestAccount.userName);
+      setUserData(() => loadedUserData);
+      setAccount(() => guestAccount);
     }
   }
 
-  function loginRequest(requestAccount) {
-    if (verifyAccount(requestAccount.userName, requestAccount.password, requestAccount.email)) {
+  function loginRequest(userName, password) {
+    const requestAccount = findAccount(userName);
+    if (!requestAccount) {
+      setLoginFail(() => true);
+      console.log("Bad Login Request");
+      return;
+    }
+    if (verifyAccount(requestAccount, password)) {
       // Normally, get user data for the account in the database.
       console.log("Account verified");
       localStorage.setItem('account', JSON.stringify(requestAccount));
       const loadedUserData = loadUserData(requestAccount.userName);
       setUserData(() => loadedUserData);
       setAccount(() => requestAccount);
+      setLoginFail(() => false);
     } else {
-      const newAccount = makeAccount(
-        requestAccount.userName, 
-        requestAccount.password, 
-        requestAccount.email, false);
-      setAccount(() => newAccount);
+      setLoginFail(() => true);
     }
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    if (!account) {
-      // TO-DO
-      return;
-    }
-    loginRequest(account);
+    loginRequest(inputUserName, inputPassword);
   }
 
   return (
@@ -80,6 +82,10 @@ export function Login({ account, setAccount, setUserData }) {
                           type="submit">Login</button>
           </div>
         </form>
+        {loginFail && <div className="failed-login">
+          Login attempt failed. Make sure your password is correct, or
+          <NavLink to='/register'> Register </NavLink>if you don't have an account.
+          </div>}
       </div>
       <div className="login-options">
         <h3>Other Options</h3>

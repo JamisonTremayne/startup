@@ -1,13 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../login/login.css';
-import { makeAccount, makeGuestAccount } from './account.js';
+import { makeAccount, makeGuestAccount, findAccount } from './account.js';
 
 export function Register({ account, setAccount, setUserData }) {
     const [inputUserName, setInputUserName] = React.useState('');
     const [inputPassword, setInputPassword] = React.useState('');
     const [inputEmail, setInputEmail] = React.useState('');
     const [guest, setGuest] = React.useState(localStorage.getItem('guest_account') || '');
+    const [accountExists, setAccountExists] = React.useState(false);
     const guestAccount = JSON.parse(guest);
 
     function handleGuest() {
@@ -27,12 +28,14 @@ export function Register({ account, setAccount, setUserData }) {
     }
 
     function registerRequest(userName, password, email) {
-        if (account.userName === userName || account.email === email) {
-            // TO-DO
+        const existingAccount = findAccount(userName);
+        if (existingAccount) {
+            setAccountExists(() => true);
             return;
         }
         const newAccount = makeAccount(userName, password, email, false);
         setAccount(() => newAccount);
+        setAccountExists(() => false);
     }
     
   return (
@@ -75,6 +78,10 @@ export function Register({ account, setAccount, setUserData }) {
                         focus:outline-none focus:ring-2 focus:ring-purple-400"
                         type="submit">Register</button>
                 </div>
+                {accountExists && <div className="failed-login">
+                An account with that username already exists! Please pick a different username, or
+                <NavLink to='/'> Login </NavLink>if you already have an account.
+                </div>}
             </form>
         </div>
         <div className="login-options">

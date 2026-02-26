@@ -43,9 +43,8 @@ export default function App() {
     }, []);
 
     React.useEffect(() => { // Auto-increment pixels based on Miners every second.
-        if (!userData) return;
-
         const interval = setInterval(() => {
+            if (!userData) return;
             setUserData(prev => 
                 prev ? applyMinerProduction(prev, 1) : prev
             );

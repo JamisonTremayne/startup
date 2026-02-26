@@ -20,6 +20,10 @@ export function makeAccount(userName, password, email, isGuest) {
     //Normally this would be stored in a database, but for now it works the same as a guest account
     localStorage.setItem('account', json);
     saveUserData(userData);
+
+    let accountArray = JSON.parse(localStorage.getItem('account_array')) || [];
+    accountArray.push(account);
+    localStorage.setItem('account_array', JSON.stringify(accountArray));
     return account;
 }
 
@@ -44,6 +48,30 @@ export function saveAccount(account) {
     if (account.password === '' && account.email === '') {
         localStorage.setItem('guest_account', json);
     }
+    let accountArray = JSON.parse(localStorage.getItem('account_array')) || [];
+    let found = false;
+    for (let i = 0; i < accountArray.length; i++) {
+        const acc = accountArray[i];
+        if (acc.userName === account.userName) {
+            accountArray[i] = account;
+            found = true;
+            break;
+        }
+    } 
+    if (!found) {
+        accountArray.push(account);
+    }
+    localStorage.setItem('account_array', JSON.stringify(accountArray));
+}
+
+export function findAccount(userName) {
+    const accountArray = JSON.parse(localStorage.getItem('account_array')) || [];
+    for (const account in accountArray) {
+        if (account.userName === userName) {
+            return account;
+        }
+    }
+    return null;
 }
 
 export function logout(userData, account, setUserData, setAccount) {

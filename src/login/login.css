@@ -26,3 +26,8 @@ form div {
 #already-have-account {
     font-size: 16px;
 }
+
+.failed-login {
+    color: rgb(255, 60, 60);
+    font-size: 14px;
+}

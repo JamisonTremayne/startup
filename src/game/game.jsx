@@ -18,9 +18,24 @@ export function Game(props) {
     const [quote, setQuote] = React.useState("");
     const [quoteAuthor, setQuoteAuthor] = React.useState("");
 
+    const randomNameList = ['Jo', 'Quacker', 'Billy', 'FooLord', 'XXCookie_MonsterXX', 'Batman', 'Lilian', 'Moroni'];
+
     React.useEffect(() => {
         setQuote("Pixels are very lovely or something.");
         setQuoteAuthor("Me");
+    }, []);
+
+    React.useEffect(() => {
+        const interval = setInterval(() => {
+            const randomIndex = Math.min(Math.floor(Math.random() * randomNameList.length), randomNameList.length - 1);
+            const randomName = randomNameList[randomIndex];
+            const message = randomName + ' has just reached ' + Math.random() * (2 ** (Math.floor(Math.random() * 30))) + ' pixels!';
+            props.setToast({
+                message: message,
+                type: 'info'
+            });
+        }, 55000);
+        return () => clearInterval(interval);
     }, []);
 
     function handleLogout() {

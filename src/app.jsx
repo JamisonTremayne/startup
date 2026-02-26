@@ -4,9 +4,9 @@ import { Login } from './login/login';
 import { Register } from './register/register';
 import { Game } from './game/game';
 import { Social } from './social/social';
-import { applyMinerProduction } from './userData.js';
-import { saveUserData, loadUserData } from './saveSystem.js';
-import { saveGame } from './register/account.js';
+import { applyMinerProduction } from './utilities/userData.js';
+import { saveUserData, loadUserData } from './utilities/saveSystem.js';
+import { saveGame } from './utilities/account.js';
 import './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
 

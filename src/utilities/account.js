@@ -1,5 +1,5 @@
-import { createUserData } from '../userData.js';
-import { saveUserData } from '../saveSystem.js';
+import { createUserData } from './userData.js';
+import { saveUserData } from './saveSystem.js';
 
 export function createAccount(userName, password, email, userData) {
     return {

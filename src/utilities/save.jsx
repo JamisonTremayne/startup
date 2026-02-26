@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { saveGame } from './register/account.js';
+import { saveGame } from './account.js';
 
 export function SaveButton({ account, userData }) {
 

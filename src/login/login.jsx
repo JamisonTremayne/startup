@@ -1,10 +1,10 @@
 import React from 'react';
 import './login.css';
 import { NavLink } from 'react-router-dom';
-import { makeGuestAccount, findAccount } from '../register/account.js';
+import { makeGuestAccount, findAccount } from '../utilities/account.js';
 import { verifyAccount } from './authentication.js';
-import { createUserData } from '../userData.js';
-import { loadUserData } from '../saveSystem.js';
+import { createUserData } from '../utilities/userData.js';
+import { loadUserData } from '../utilities/saveSystem.js';
 
 export function Login({ account, setAccount, setUserData }) {
 

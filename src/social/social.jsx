@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './social.css';
-import { logout } from '../register/account.js';
+import { logout } from '../utilities/account.js';
 
 export function Social({ userData, account, setUserData, setAccount }) {
     function handleLogout() {

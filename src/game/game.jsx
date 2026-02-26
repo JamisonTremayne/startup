@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './game.css';
-import { incrementPixel, getCapacity } from '../userData.js'
+import { incrementPixel, getCapacity } from '../utilities/userData.js'
 import { UpgradeData, getUpgradeList, getUpgradeCost } from './upgrade.js'
-import { logout } from '../register/account.js';
-import { SaveButton } from '../save.jsx';
+import { logout } from '../utilities/account.js';
+import { SaveButton } from '../utilities/save.jsx';
 
 export function Game(props) {
 

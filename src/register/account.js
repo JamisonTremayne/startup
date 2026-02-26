@@ -66,7 +66,9 @@ export function saveAccount(account) {
 
 export function findAccount(userName) {
     const accountArray = JSON.parse(localStorage.getItem('account_array')) || [];
-    for (const account in accountArray) {
+    for (let i = 0; i < accountArray.length; i++) {
+        const account = accountArray[i];
+        console.log(account);
         if (account.userName === userName) {
             return account;
         }

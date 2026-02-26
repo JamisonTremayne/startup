@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import '../login/login.css';
 import { makeAccount, makeGuestAccount, findAccount } from './account.js';
 
@@ -10,6 +10,7 @@ export function Register({ account, setAccount, setUserData }) {
     const [guest, setGuest] = React.useState(localStorage.getItem('guest_account') || '');
     const [accountExists, setAccountExists] = React.useState(false);
     const guestAccount = JSON.parse(guest);
+    const navigate = useNavigate();
 
     function handleGuest() {
         if (guestAccount === '') {
@@ -35,14 +36,16 @@ export function Register({ account, setAccount, setUserData }) {
         }
         const newAccount = makeAccount(userName, password, email, false);
         setAccount(() => newAccount);
+        setUserData(() => newAccount.userData);
         setAccountExists(() => false);
+        navigate('/');
     }
     
   return (
     <main>
         <div className="login-register">
             <h2>Register</h2>
-            <form action="game" method="get" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="email">Email Add. : </label>
                     <input className="px-4 rounded-lg bg-purple-900 text-white
@@ -50,7 +53,7 @@ export function Register({ account, setAccount, setUserData }) {
                         focus:outline-none focus:ring-2 focus:ring-purple-400
                         placeholder-purple-300"
                         type="email" id="email" name="email" placeholder="Enter your email" required 
-                        onChange={(e) => setInputUserName(e.target.value)}/>
+                        onChange={(e) => setInputEmail(e.target.value)}/>
                 </div>
                 <div>
                     <label htmlFor="username">Username: </label>
@@ -59,7 +62,7 @@ export function Register({ account, setAccount, setUserData }) {
                         focus:outline-none focus:ring-2 focus:ring-purple-400
                         placeholder-purple-300"
                         type="text" id="username" name="username" placeholder="Enter your username" required 
-                        onChange={(e) => setInputPassword(e.target.value)}/>
+                        onChange={(e) => setInputUserName(e.target.value)}/>
                 </div>
                 <div>
                     <label htmlFor="password">Password: </label>
@@ -68,7 +71,7 @@ export function Register({ account, setAccount, setUserData }) {
                         focus:outline-none focus:ring-2 focus:ring-purple-400
                         placeholder-purple-300"
                         type="password" id="password" name="password" placeholder="Enter your password" required 
-                        onChange={(e) => setInputEmail(e.target.value)}/>
+                        onChange={(e) => setInputPassword(e.target.value)}/>
                 </div>
                 <div>
                     <button className="w-full mt-4 rounded-lg
@@ -78,7 +81,7 @@ export function Register({ account, setAccount, setUserData }) {
                         focus:outline-none focus:ring-2 focus:ring-purple-400"
                         type="submit">Register</button>
                 </div>
-                {accountExists && <div className="failed-login">
+                {accountExists && <div className="error-message">
                 An account with that username already exists! Please pick a different username, or
                 <NavLink to='/'> Login </NavLink>if you already have an account.
                 </div>}

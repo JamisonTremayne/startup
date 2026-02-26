@@ -54,7 +54,7 @@ export function Login({ account, setAccount, setUserData }) {
     <main>
       <div className="login-register">
         <h1>Login</h1>
-        <form action="game" method="get" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="username">Username: </label>
             <input className="px-4 rounded-lg bg-purple-900 text-white
@@ -82,7 +82,7 @@ export function Login({ account, setAccount, setUserData }) {
                           type="submit">Login</button>
           </div>
         </form>
-        {loginFail && <div className="failed-login">
+        {loginFail && <div className="error-message">
           Login attempt failed. Make sure your password is correct, or
           <NavLink to='/register'> Register </NavLink>if you don't have an account.
           </div>}

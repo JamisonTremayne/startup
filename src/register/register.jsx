@@ -7,14 +7,17 @@ export function Register({ account, setAccount, setUserData }) {
     const [inputUserName, setInputUserName] = React.useState('');
     const [inputPassword, setInputPassword] = React.useState('');
     const [inputEmail, setInputEmail] = React.useState('');
-    const [guest, setGuest] = React.useState(localStorage.getItem('guest_account') || '');
+    const [guestAccount, setGuest] = React.useState(JSON.parse(localStorage.getItem('guest_account')) || null);
     const [accountExists, setAccountExists] = React.useState(false);
-    const guestAccount = JSON.parse(guest);
     const navigate = useNavigate();
 
     function handleGuest() {
         if (guestAccount === '') {
-          makeGuestAccount();
+            const newGuestAccount = makeGuestAccount();
+            setAccount(() => newGuestAccount);
+            setUserData(() => newGuestAccount.userData);
+            setAccountExists(() => false);
+            navigate('/');
         } else {
             localStorage.setItem('account', JSON.stringify(guestAccount));
             const loadedUserData = loadUserData(guestAccount.userName);

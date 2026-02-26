@@ -28,6 +28,7 @@ export function Social({ userData, account, setUserData, setAccount, setToast })
 
     function getScore(userData) {
         const pixels = userData.pixels;
+        if (!pixels) return 0;
         return pixels.red + pixels.green + pixels.blue;
     }
 

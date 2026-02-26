@@ -10,13 +10,15 @@ export function Login({ account, setAccount, setUserData }) {
 
   const [inputUserName, setInputUserName] = React.useState('');
   const [inputPassword, setInputPassword] = React.useState('');
-  const [guest, setGuest] = React.useState(localStorage.getItem('guest_account') || '');
+  const [guestAccount, setGuest] = React.useState(JSON.parse(localStorage.getItem('guest_account')) || null);
   const [loginFail, setLoginFail] = React.useState(false);
-  const guestAccount = JSON.parse(guest);
 
   function handleGuest() {
     if (!guestAccount) {
-      makeGuestAccount();
+      const newGuestAccount = makeGuestAccount();
+      setAccount(() => newGuestAccount);
+      setUserData(() => newGuestAccount.userData);
+      setAccountExists(() => false);
     } else {
       localStorage.setItem('account', JSON.stringify(guestAccount));
       const loadedUserData = loadUserData(guestAccount.userName);

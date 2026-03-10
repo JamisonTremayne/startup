@@ -1,10 +1,14 @@
 const express = require('express');
 const app = express();
 
-const port = process.argv.length > 2 ? process.argv[2] : 4000;
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcryptjs');
+const uuid = require('uuid');
 
-app.get('*', (_req, res) => {
-  res.send({ msg: 'Simon service' });
+const port = process.argv[2] || 4000;
+
+app.get(/.*/, (req, res) => {
+  res.json({ msg: 'Pixel Hoarder service' });
 });
 
 app.listen(port, () => {

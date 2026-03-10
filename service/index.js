@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 let accounts = [];
-let users = [];
+let userdata = {};
 
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
@@ -19,7 +19,7 @@ apiRouter.post('/auth/create', async (req, res) => {
   if (await findAccount('userName', req.body.email)) {
     res.status(409).send({ msg: 'Existing account' });
   } else {
-    const account = await createAccount(req.body.email, req.body.password);
+    const account = await createAccount(req.body.userName, req.body.password);
 
     setAuthCookie(res, account.token);
     res.send({ email: account.email });
@@ -62,13 +62,14 @@ const verifyAuth = async (req, res, next) => {
 
 // GetUserData
 apiRouter.get('/userdata', verifyAuth, (_req, res) => {
-  res.send(userdata);
+    const user = findUserData(req.body);
+  res.json(user);
 });
 
 // SubmitUserData
 apiRouter.post('/userdata', verifyAuth, (req, res) => {
-  userdata = updateUserData(req.body);
-  res.send(userdata);
+  const user = updateUserData(req.body);
+  res.json(user);
 });
 
 // Default error handler
@@ -80,3 +81,38 @@ app.use(function (err, req, res, next) {
 app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
+
+
+// updateUserData updates existing userData or adds it if not found
+function updateUserData(newData) {
+  userdata[newData.userName] = newData;
+  return newData;
+}
+
+async function createAccount(userName, password) {
+  const passwordHash = await bcrypt.hash(password, 10);
+
+  const account = {
+    userName: userName,
+    password: passwordHash,
+    token: uuid.v4(),
+  };
+  accounts.push(account);
+
+  return account;
+}
+
+async function findAccount(field, value) {
+  if (!value) return null;
+
+  return accounts.find((u) => u[field] === value);
+}
+
+// setAuthCookie in the HTTP response
+function setAuthCookie(res, authToken) {
+  res.cookie(authCookieName, authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}

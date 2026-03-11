@@ -10,11 +10,11 @@ import { ColoredPixels } from './colored_pixels.jsx';
 
 export function Game(props) {
 
+    const userName = props.userName;
+    const setUserName = props.setUserName;
     const userData = props.userData;
-    const pixels = userData.pixels;
     const setUserData = props.setUserData;
-    const account = props.account;
-    const setAccount = props.setAccount;
+    const pixels = userData.pixels;
     const [quote, setQuote] = React.useState("");
     const [quoteAuthor, setQuoteAuthor] = React.useState("");
 
@@ -39,7 +39,7 @@ export function Game(props) {
     }, []);
 
     function handleLogout() {
-        logout(userData, account, setUserData, setAccount, props.setToast);
+        logout(setUserName, userData, setUserData, props.setToast);
     }
 
     function handlePixelClick(color) {

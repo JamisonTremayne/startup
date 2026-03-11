@@ -41,29 +41,6 @@ export function updateUserData(account, userData) {
     };
 }
 
-export function saveAccount(account) {
-    // Normally would also update a database, but for now this works.
-    const json = JSON.stringify(account);
-    localStorage.setItem('account', json);
-    if (account.password === '' && account.email === '') {
-        localStorage.setItem('guest_account', json);
-    }
-    let accountArray = JSON.parse(localStorage.getItem('account_array')) || [];
-    let found = false;
-    for (let i = 0; i < accountArray.length; i++) {
-        const acc = accountArray[i];
-        if (acc.userName === account.userName) {
-            accountArray[i] = account;
-            found = true;
-            break;
-        }
-    } 
-    if (!found) {
-        accountArray.push(account);
-    }
-    localStorage.setItem('account_array', JSON.stringify(accountArray));
-}
-
 export async function findAccount(userName) {
     const response = await fetch(`/auth/login/`, {
     method: 'post',
@@ -81,18 +58,26 @@ export async function findAccount(userName) {
   }
 }
 
-export function saveGame(userData, account, setToast) {
+export function saveGame(userData, setToast) {
     saveUserData(userData);
-    saveAccount(updateUserData(account, userData));
     setToast({
         message: 'Game Saved',
         type: 'success'
     });
 }
 
-export function logout(userData, account, setUserData, setAccount, setToast) {
-    saveGame(userData, account, setToast);
-    localStorage.removeItem('account');
-    setUserData(() => null);
-    setAccount(() => null);
+export function logout(setUserName, userData, setUserData, setToast) {
+    fetch(`/api/auth/logout`, {
+        method: 'delete',
+    })
+        .catch(() => {
+        // Logout failed. Assuming offline
+        })
+        .finally(() => {
+            saveGame(userData, setToast);
+            localStorage.removeItem('userName');
+            setUserName(() => '');
+            setUserData(() => null);
+            props.onLogout();
+        });
 }

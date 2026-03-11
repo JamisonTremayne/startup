@@ -4,9 +4,14 @@ import './social.css';
 import { logout } from '../utilities/account.js';
 import { SaveButton } from '../utilities/save.jsx';
 
-export function Social({ userData, account, setUserData, setAccount, setToast }) {
+export function Social(props) {
+    const userName = props.userName;
+    const setUserName = props.setUserName;
+    const userData = props.userData;
+    const setUserData = props.setUserData;
+    
     function handleLogout() {
-        logout(userData, account, setUserData, setAccount, setToast);
+        logout(setUserName, userData, setUserData, props.setToast);
     }
 
     function getHighScores() {

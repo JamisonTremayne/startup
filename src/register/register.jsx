@@ -11,15 +11,15 @@ export function Register({ setUserName, setUserData }) {
     const navigate = useNavigate();
 
     async function handleGuest() {
-        const guestId = localStorage.getItem('guestId') || null;
+        let guestId = localStorage.getItem('guestId') || null;
         if (guestId === null) {
-            const res = await fetch("/guest/", { method: "post" });
+            const res = await fetch(`/api/guest/`, { method: "post" });
             const data = await res.json();
             guestId = data.guestId;
             localStorage.setItem("guestId", guestId);
             await registerRequest(guestId, "", "");
         } else {
-            await fetch(`/auth/login/`, {
+            await fetch(`/api/auth/login/`, {
                 method: 'post',
                 body: JSON.stringify({ userName: guestId, password: "" }),
                 headers: {
@@ -39,7 +39,7 @@ export function Register({ setUserName, setUserData }) {
     }
 
 async function registerRequest(userName, password, email) {
-    const response = await fetch(`/auth/create/`, {
+    const response = await fetch(`/api/auth/create/`, {
         method: 'post',
         body: JSON.stringify({ userName: userName, password: password, email: email }),
         headers: {

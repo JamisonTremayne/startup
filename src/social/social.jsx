@@ -15,7 +15,7 @@ export async function Social(props) {
     }
 
     async function getHighScores() {
-        const response = fetch(`/scores/`, { method: 'post'});
+        const response = fetch(`api/scores/`, { method: 'post'});
         return (await response).json();
     }
 

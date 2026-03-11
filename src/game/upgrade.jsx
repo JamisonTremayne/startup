@@ -1,6 +1,5 @@
 import React from 'react';
 import { ColoredPixels } from './colored_pixels';
-import { getColor } from '../utilities/tools';
 
 export function Upgrades({ userData, setUserData }) {
 

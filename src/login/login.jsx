@@ -10,15 +10,15 @@ export function Login({ setUserName, setUserData }) {
   const [loginFail, setLoginFail] = React.useState(false);
 
 async function handleGuest() {
-    const guestId = localStorage.getItem('guestId') || null;
+    let guestId = localStorage.getItem('guestId') || null;
     if (guestId === null) {
-        const res = await fetch("/guest/", { method: "post" });
+        const res = await fetch(`/api/guest/`, { method: "post" });
         const data = await res.json();
         guestId = data.guestId;
         localStorage.setItem("guestId", guestId);
         await registerRequest(guestId, "", "");
     } else {
-        await fetch(`/auth/login/`, {
+        await fetch(`/api/auth/login/`, {
             method: 'post',
             body: JSON.stringify({ userName: guestId, password: "" }),
             headers: {
@@ -33,7 +33,7 @@ async function handleGuest() {
 }
 
 async function loginRequest(userName, password) {
-    const response = await fetch(`/auth/login/`, {
+    const response = await fetch(`/api/auth/login/`, {
         method: 'post',
         body: JSON.stringify({ userName: userName, password: password }),
         headers: {
@@ -55,7 +55,7 @@ async function loginRequest(userName, password) {
 
 // For if a guest account is chosen but one doesn't exist
 async function registerRequest(userName, password, email) {
-    const response = await fetch(`/auth/create/`, {
+    const response = await fetch(`/api/auth/create/`, {
         method: 'post',
         body: JSON.stringify({ userName: userName, password: password, email: email }),
         headers: {

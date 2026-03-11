@@ -42,7 +42,7 @@ export function updateUserData(account, userData) {
 }
 
 export async function findAccount(userName) {
-    const response = await fetch(`/auth/login/`, {
+    const response = await fetch(`api/auth/login/`, {
     method: 'post',
     body: JSON.stringify({ userName: userName, password: password }),
     headers: {

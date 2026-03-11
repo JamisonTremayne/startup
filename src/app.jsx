@@ -11,30 +11,30 @@ import { Toast } from './utilities/toast.jsx';
 import './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
 
-export default async function App() {
+export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
-    const [userData, setUserData] = React.useState( await loadUserData(userName));
+    const [userData, setUserData] = React.useState(null);
     const [toast, setToast] = React.useState(null);
 
     const userDataRef = React.useRef(userData);
-    const accountRef = React.useRef(account);
+    const userNameRef = React.useRef(userName);
 
     React.useEffect(() => {
         userDataRef.current = userData;
     }, [userData]);
 
     React.useEffect(() => {
-        accountRef.current = account;
-    }, [account]);
+        userNameRef.current = userName;
+    }, [userName]);
 
     React.useEffect(() => {
         const interval = setInterval(() => {
             const currentUser = userDataRef.current;
-            const currentAccount = accountRef.current;
+            const currentUserName = userNameRef.current;
 
             if (!currentUser) return;
 
-            saveGame(currentUser, currentAccount, setToast);
+            saveGame(currentUser, currentUserName, setToast);
             console.log("Autosaving...");
 
         }, 30000);
@@ -72,7 +72,7 @@ export default async function App() {
 
             <Routes>
                 <Route path='/' element={
-                    !account ? <Login
+                    userName == '' ? <Login
                             setUserName={setUserName}
                             setUserData={setUserData} />
                             : <Game 

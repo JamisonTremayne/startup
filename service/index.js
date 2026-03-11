@@ -28,7 +28,7 @@ apiRouter.post('/auth/create', async (req, res) => {
     const account = await createAccount(req.body.userName, req.body.password, req.body.email);
 
     setAuthCookie(res, account.token);
-    res.send({ userName: account.userName });
+    res.send({ account: account, userdata: userdata[account.userName] });
   }
 });
 
@@ -39,7 +39,7 @@ apiRouter.post('/auth/login', async (req, res) => {
     if (await bcrypt.compare(req.body.password, account.password)) {
       account.token = uuid.v4();
       setAuthCookie(res, account.token);
-      res.send({ userName: account.userName });
+      res.send({ account: account, userdata: userdata[account.userName] });
       return;
     }
   }
@@ -56,12 +56,9 @@ apiRouter.delete('/auth/logout', async (req, res) => {
   res.status(204).end();
 });
 
-// GetGuest get guest id
+// CreateGuest get a guest id
 apiRouter.post('/guest', (req, res) => {
   const guestId = `guest_${Math.random().toString(36).substring(2, 10)}`;
-
-  userdata[guestId] = createUserData(guestId);
-
   res.json({ guestId });
 });
 

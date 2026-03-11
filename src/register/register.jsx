@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import '../login/login.css';
-import { makeAccount, makeGuestAccount, findAccount } from '../utilities/account.js';
 
 export function Register({ account, setAccount, setUserData }) {
     const [inputUserName, setInputUserName] = React.useState('');
@@ -11,26 +10,27 @@ export function Register({ account, setAccount, setUserData }) {
     const [accountExists, setAccountExists] = React.useState(false);
     const navigate = useNavigate();
 
-    function handleGuest() {
+    async function handleGuest() {
         const guestId = localStorage.getItem('guestId') || null;
-        
-        if (guestAccount === '') {
-            const newGuestAccount = makeGuestAccount();
-            setAccount(() => newGuestAccount);
-            setUserData(() => newGuestAccount.userData);
-            setAccountExists(() => false);
-            navigate('/');
+        if (guestAccount === null) {
+            const res = await fetch("/guest/", { method: "POST" });
+            const data = await res.json();
+            guestId = data.guestId;
+            localStorage.setItem("guestId", guestId);
+            await registerRequest(guestId, "", "");
         } else {
-            localStorage.setItem('account', JSON.stringify(guestAccount));
+            const res = await fetch("/auth/login/", { 
+                method: "POST" 
+            });
             const loadedUserData = loadUserData(guestAccount.userName);
             setUserData(() => loadedUserData);
             setAccount(() => guestAccount);
         }
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
-        registerRequest(inputUserName, inputPassword, inputEmail);
+        await registerRequest(inputUserName, inputPassword, inputEmail);
     }
 
     async function registerRequest(userName, password, email) {

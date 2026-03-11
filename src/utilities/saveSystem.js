@@ -13,7 +13,7 @@ export async function loadUserData(userName) {
     if (!userName) return null;
     
     const response = await fetch(`/api/userdata/${userName}`, {
-        method: 'GET',
+        method: 'post',
     });
     if (!response.ok) {
         return createUserData(userName);

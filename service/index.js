@@ -28,7 +28,7 @@ apiRouter.post('/auth/create', async (req, res) => {
     const account = await createAccount(req.body.userName, req.body.password, req.body.email);
 
     setAuthCookie(res, account.token);
-    res.send({ account: account, userdata: userdata[account.userName] });
+    res.send({ userName: account.userName });
   }
 });
 
@@ -39,7 +39,7 @@ apiRouter.post('/auth/login', async (req, res) => {
     if (await bcrypt.compare(req.body.password, account.password)) {
       account.token = uuid.v4();
       setAuthCookie(res, account.token);
-      res.send({ account: account, userdata: userdata[account.userName] });
+      res.send({ userName: account.userName });
       return;
     }
   }
@@ -73,7 +73,7 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // GetUserData
-apiRouter.get('/userdata/:username', verifyAuth, (req, res) => {
+apiRouter.post('/userdata/:username', verifyAuth, (req, res) => {
     const user = findUserData(req.params.username);
     if (!user) {
         return res.status(404).json({ error: "User not found" });

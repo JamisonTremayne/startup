@@ -1,30 +1,34 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import '../login/login.css';
+import { loadUserData } from '../utilities/saveSystem';
 
-export function Register({ account, setAccount, setUserData }) {
+export function Register({ setUsername, setUserData }) {
     const [inputUserName, setInputUserName] = React.useState('');
     const [inputPassword, setInputPassword] = React.useState('');
     const [inputEmail, setInputEmail] = React.useState('');
-    const [guestAccount, setGuest] = React.useState(JSON.parse(localStorage.getItem('guest_account')) || null);
     const [accountExists, setAccountExists] = React.useState(false);
     const navigate = useNavigate();
 
     async function handleGuest() {
         const guestId = localStorage.getItem('guestId') || null;
-        if (guestAccount === null) {
-            const res = await fetch("/guest/", { method: "POST" });
+        if (guestId === null) {
+            const res = await fetch("/guest/", { method: "post" });
             const data = await res.json();
             guestId = data.guestId;
             localStorage.setItem("guestId", guestId);
             await registerRequest(guestId, "", "");
         } else {
-            const res = await fetch("/auth/login/", { 
-                method: "POST" 
+            await fetch(`/auth/login/`, {
+                method: 'post',
+                body: JSON.stringify({ userName: guestId, password: "" }),
+                headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                },
             });
-            const loadedUserData = loadUserData(guestAccount.userName);
+            const loadedUserData = loadUserData(guestId);
             setUserData(() => loadedUserData);
-            setAccount(() => guestAccount);
+            setUsername(() => guestId);
         }
     }
 
@@ -35,7 +39,7 @@ export function Register({ account, setAccount, setUserData }) {
 
     async function registerRequest(userName, password, email) {
         const response = await fetch(`/auth/create/`, {
-            method: 'POST',
+            method: 'post',
             body: JSON.stringify({ userName: userName, password: password, email: email }),
             headers: {
             'Content-type': 'application/json; charset=UTF-8',

@@ -78,7 +78,7 @@ export function Game(props) {
             <div>
                 <nav className='menu-nav'>
                     <ul>
-                        <li><div>Welcome <span id="username">{userData.userName}</span>!</div></li>
+                        <li><div>Welcome <span id="username">{userName}</span>!</div></li>
                         <li><NavLink to="/" onClick={handleLogout}>Logout</NavLink></li>
                         <li><NavLink to="/social">Social Page</NavLink></li>
                         <li><SaveButton 

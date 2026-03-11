@@ -19,6 +19,8 @@ export default function App() {
     const userDataRef = React.useRef(userData);
     const userNameRef = React.useRef(userName);
 
+    console.log(userData);
+
     React.useEffect(() => {
         userDataRef.current = userData;
     }, [userData]);

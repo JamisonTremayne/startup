@@ -1,24 +1,22 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('./node_modules/bcryptjs/umd');
 const uuid = require('uuid');
 const app = express();
 
 const authCookieName = 'token';
-
-app.use(express.json());
 
 let accounts = [];
 let userdata = {};
 
 const port = process.argv[2] || 4000;
 
-let apiRouter = express.Router();
-app.use(`/api`, apiRouter);
+app.use(express.json());
+app.use(cookieParser());
 app.use(express.static('public'));
 
-
-
+let apiRouter = express.Router();
+app.use(`/api`, apiRouter);
 
 // CreateAuth a new account
 apiRouter.post('/auth/create', async (req, res) => {
@@ -73,8 +71,8 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // GetUserData
-apiRouter.post('/userdata/:username', verifyAuth, (req, res) => {
-    const user = findUserData(req.params.username);
+apiRouter.get('/userdata/:userName', (req, res) => {
+    const user = findUserData(req.params.userName);
     if (!user) {
         return res.status(404).json({ error: "User not found" });
     }

@@ -49,7 +49,7 @@ async function registerRequest(userName, password, email) {
     if (response?.status === 200) {
         localStorage.setItem('userName', userName);
         setUserName(() => userName);
-        const newUserData = loadUserData(userName); //Should make a new user data object
+        const newUserData = await loadUserData(userName); //Should make a new user data object
         setUserData(() => newUserData);
         setAccountExists(() => false);
         navigate('/');

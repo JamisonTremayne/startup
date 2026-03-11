@@ -75,8 +75,10 @@ export function Game(props) {
     }
 
     let clickablePixels = ['blue'];
-    if (userData.upgrades.greenPixel) clickablePixels.push('green');
-    if (userData.upgrades.redPixel) clickablePixels.push('red');
+    if (userData) {
+        if (userData.upgrades.greenPixel) clickablePixels.push('green');
+        if (userData.upgrades.redPixel) clickablePixels.push('red');
+    }
     
   return (
           <main>

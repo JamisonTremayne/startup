@@ -12,20 +12,20 @@ export function Login({ setUserName, setUserData }) {
 async function handleGuest() {
     let guestId = localStorage.getItem('guestId') || null;
     if (guestId === null) {
-        const res = await fetch(`/api/guest/`, { method: "post" });
+        const res = await fetch(`/api/guest`, { method: "post" });
         const data = await res.json();
         guestId = data.guestId;
         localStorage.setItem("guestId", guestId);
         await registerRequest(guestId, "", "");
     } else {
-        await fetch(`/api/auth/login/`, {
+        await fetch(`/api/auth/login`, {
             method: 'post',
             body: JSON.stringify({ userName: guestId, password: "" }),
             headers: {
             'Content-type': 'application/json; charset=UTF-8',
             },
         });
-        const loadedUserData = loadUserData(guestId);
+        const loadedUserData = await loadUserData(guestId);
         setUserData(() => loadedUserData);
         localStorage.setItem('userName', guestId);
         setUserName(() => guestId);
@@ -33,7 +33,7 @@ async function handleGuest() {
 }
 
 async function loginRequest(userName, password) {
-    const response = await fetch(`/api/auth/login/`, {
+    const response = await fetch(`/api/auth/login`, {
         method: 'post',
         body: JSON.stringify({ userName: userName, password: password }),
         headers: {
@@ -43,7 +43,7 @@ async function loginRequest(userName, password) {
     if (response?.status === 200) {
         localStorage.setItem('userName', userName);
         setUserName(() => userName);
-        const userData = loadUserData(userName);
+        const userData = await loadUserData(userName);
         setUserData(() => userData);
         setLoginFail(() => false);
         navigate('/');
@@ -55,7 +55,7 @@ async function loginRequest(userName, password) {
 
 // For if a guest account is chosen but one doesn't exist
 async function registerRequest(userName, password, email) {
-    const response = await fetch(`/api/auth/create/`, {
+    const response = await fetch(`/api/auth/create`, {
         method: 'post',
         body: JSON.stringify({ userName: userName, password: password, email: email }),
         headers: {
@@ -65,14 +65,10 @@ async function registerRequest(userName, password, email) {
     if (response?.status === 200) {
         localStorage.setItem('userName', userName);
         setUserName(() => userName);
-        const newUserData = loadUserData(userName); //Should make a new user data object
+        const newUserData = await loadUserData(userName); //Should make a new user data object
+        console.log("NEW USER DATA: ", newUserData);
         setUserData(() => newUserData);
-        setAccountExists(() => false);
-        navigate('/');
-    } else {
-        setAccountExists(() => true);
-        return;
-    }
+    } 
 }
 
   async function handleSubmit(e) {

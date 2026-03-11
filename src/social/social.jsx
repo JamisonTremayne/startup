@@ -4,7 +4,7 @@ import './social.css';
 import { logout } from '../utilities/account.js';
 import { SaveButton } from '../utilities/save.jsx';
 
-export function Social(props) {
+export async function Social(props) {
     const userName = props.userName;
     const setUserName = props.setUserName;
     const userData = props.userData;
@@ -14,27 +14,9 @@ export function Social(props) {
         logout(setUserName, userData, setUserData, props.setToast);
     }
 
-    function getHighScores() {
-        const accountArray = JSON.parse(localStorage.getItem('account_array')) || [];
-        let sortedArray = accountArray.sort((a,b) => 
-        getScore(b.userData) - getScore(a.userData));
-        let scoreArray = [];
-        for (let i = 0; i < sortedArray.length && i < 50; i++) {
-            const account = sortedArray[i];
-            const scoreData = {
-                index: i + 1,
-                userName: account.userName,
-                score: getScore(account.userData)
-            };
-            scoreArray.push(scoreData);
-        }
-        return scoreArray;
-    }
-
-    function getScore(userData) {
-        const pixels = userData.pixels;
-        if (!pixels) return 0;
-        return pixels.red + pixels.green + pixels.blue;
+    async function getHighScores() {
+        const response = fetch(`/scores/`, { method: 'post'});
+        return (await response).json();
     }
 
     function ScoreEntry(scoreData) {
@@ -50,7 +32,7 @@ export function Social(props) {
         );
     }
 
-    const scores = getHighScores();
+    const scores = await getHighScores();
 
   return (
           <main>

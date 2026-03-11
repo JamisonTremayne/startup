@@ -87,6 +87,12 @@ apiRouter.post('/userdata', verifyAuth, (req, res) => {
   res.json(user);
 });
 
+// GetScores
+apiRouter.post('/scores', verifyAuth, (req, res) => {
+  const scoreArray = getHighScores();
+  res.json(scoreArray);
+})
+
 // Default error handler
 app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });
@@ -128,13 +134,35 @@ async function findAccount(field, value) {
   return accounts.find((u) => u[field] === value);
 }
 
+function getHighScores() {
+  const userArray = Object.values(userdata);
+  let sortedArray = userArray.sort((a,b) => getScore(b) - getScore(a));
+  let scoreArray = [];
+  for (let i = 0; i < sortedArray.length && i < 50; i++) {
+    const user = sortedArray[i];
+    const scoreData = {
+      index: i + 1,
+      userName: user.userName,
+      score: getScore(user)
+    };
+    scoreArray.push(scoreData);
+  }
+  return scoreArray;
+}
+
+function getScore(userData) {
+  const pixels = userData.pixels;
+  if (!pixels) return 0;
+  return pixels.red + pixels.green + pixels.blue;
+}
+
 // setAuthCookie in the HTTP response
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {
     secure: true,
     httpOnly: true,
     sameSite: 'strict',
-  });
+});
 }
 
 app.listen(port, () => {

@@ -14,7 +14,6 @@ import './app.css';
 export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const [userData, setUserData] = React.useState(null);
-    const [loading, setLoading] = React.useState(true);
     const [toast, setToast] = React.useState(null);
 
     const userDataRef = React.useRef(userData);
@@ -35,10 +34,7 @@ export default function App() {
                 const loadedUserData = await loadUserData(userName);
                 setUserData(loadedUserData);
             }
-
-            setLoading(false);
         }
-
         initializeUser();
     }, []);
 
@@ -59,7 +55,6 @@ export default function App() {
 
     React.useEffect(() => { // Auto-increment pixels based on Miners every second.
         const interval = setInterval(() => {
-            if (!userData) return;
             setUserData(prev => 
                 prev ? applyMinerProduction(prev, 1) : prev
             );
@@ -87,7 +82,7 @@ export default function App() {
 
             <Routes>
                 <Route path='/' element={
-                    userName == '' || loading ? <Login
+                    userData === null ? <Login
                             setUserName={setUserName}
                             setUserData={setUserData} />
                             : <Game 
@@ -104,7 +99,7 @@ export default function App() {
                             setUserName={setUserName}
                             userData={userData}
                             setUserData={setUserData}
-                            setToast={setToast}/>} />
+                            setToast={setToast} />} />
                 <Route path='*' element={<NotFound />} />
             </Routes>
 

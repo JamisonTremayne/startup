@@ -67,6 +67,7 @@ export function saveGame(userData, setToast) {
 }
 
 export function logout(setUserName, userData, setUserData, setToast) {
+    saveGame(userData, setToast);
     fetch(`/api/auth/logout`, {
         method: 'delete',
     })
@@ -74,10 +75,8 @@ export function logout(setUserName, userData, setUserData, setToast) {
         // Logout failed. Assuming offline
         })
         .finally(() => {
-            saveGame(userData, setToast);
             localStorage.removeItem('userName');
             setUserName(() => '');
             setUserData(() => null);
-            props.onLogout();
         });
 }

@@ -50,7 +50,7 @@ async function registerRequest(userName, password, email) {
         localStorage.setItem('userName', userName);
         setUserName(userName);
         const newUserData = await loadUserData(userName); //Should make a new user data object
-        setUserData(() => newUserData);
+        setUserData(newUserData);
         setAccountExists(false);
         navigate('/');
     } else {

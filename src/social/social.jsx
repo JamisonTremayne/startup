@@ -4,7 +4,7 @@ import './social.css';
 import { logout } from '../utilities/account.js';
 import { SaveButton } from '../utilities/save.jsx';
 
-export async function Social(props) {
+export function Social(props) {
     const userName = props.userName;
     const setUserName = props.setUserName;
     const userData = props.userData;
@@ -27,7 +27,7 @@ export async function Social(props) {
 
     async function getHighScores() {
         const response = fetch(`api/scores/`, { method: 'post'});
-        return (await response.json());
+        return (await response).json();
     }
 
     function ScoreEntry(scoreData) {
@@ -52,7 +52,7 @@ export async function Social(props) {
                     <li><NavLink to="/">Return to Game</NavLink></li>
                     <li><SaveButton  
                         userData={userData} 
-                        setToast={setToast} /></li>
+                        setToast={props.setToast} /></li>
                 </ul>
             </nav>
             <section id="high-scores">

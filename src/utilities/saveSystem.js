@@ -2,7 +2,7 @@ import { createUserData, applyMinerProduction, updateTimeStamp } from "./userDat
 
 export async function saveUserData(userData) {
     const newData = updateTimeStamp(userData);
-    await fetch(`/api/userdata/submit`, {
+    await fetch(`/api/userdata`, {
         method: 'post',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(newData),
@@ -12,7 +12,7 @@ export async function saveUserData(userData) {
 export async function loadUserData(userName) {
     if (!userName) return null;
     const response = await fetch(`/api/userdata/${encodeURIComponent(userName)}`);
-    if (!response.ok) {
+    if (response.status === 204) {
         return createUserData(userName);
     }
 

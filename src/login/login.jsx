@@ -46,7 +46,6 @@ async function loginRequest(userName, password) {
         const userData = await loadUserData(userName);
         setUserData(userData);
         setLoginFail(false);
-        navigate('/');
     } else {
         setLoginFail(true);
         return;
@@ -66,7 +65,7 @@ async function registerRequest(userName, password, email) {
         const newUserData = await loadUserData(userName); //Should make a new user data object
         setUserData(newUserData);
         localStorage.setItem('userName', userName);
-        setUserName(() => userName);
+        setUserName(userName);
     } 
 }
 

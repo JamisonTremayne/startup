@@ -23,8 +23,8 @@ apiRouter.post('/auth/create', async (req, res) => {
   if (await findAccount('userName', req.body.userName)) {
     res.status(409).send({ msg: 'Existing account' });
   } else {
-    const account = await createAccount(req.body.userName, req.body.password, req.body.email);
-
+    const account = await createAccount(
+      req.body.userName, req.body.password, req.body.email);
     setAuthCookie(res, account.token);
     res.send({ userName: account.userName });
   }
@@ -74,7 +74,7 @@ const verifyAuth = async (req, res, next) => {
 apiRouter.get('/userdata/:userName', (req, res) => {
     const user = findUserData(req.params.userName);
     if (!user) {
-        return res.status(404).json({ error: "User not found" });
+        return res.status(204).end();
     }
   res.json(user);
 });

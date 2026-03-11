@@ -21,8 +21,13 @@ export function Game(props) {
     const randomNameList = ['Jo', 'Quacker', 'Billy', 'FooLord', 'XXCookie_MonsterXX', 'Batman', 'Lilian', 'Moroni'];
 
     React.useEffect(() => {
-        setQuote("Pixels are very lovely or something.");
-        setQuoteAuthor("Me");
+        fetch('https://quote.cs260.click')
+            .then((response) => response.json())
+            .then((data) => {
+            setQuote(data.quote);
+            setQuoteAuthor(data.author);
+            })
+            .catch();
     }, []);
 
     React.useEffect(() => {

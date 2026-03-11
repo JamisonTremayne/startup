@@ -12,9 +12,7 @@ export async function saveUserData(userData) {
 export async function loadUserData(userName) {
     if (!userName) return null;
     const response = await fetch(`/api/userdata/${encodeURIComponent(userName)}`);
-    console.log("RESPONSE", response.ok);
     if (!response.ok) {
-        console.log("New user data: ", createUserData(userName));
         return createUserData(userName);
     }
 

@@ -2,10 +2,10 @@ import React from 'react';
 
 import { saveGame } from './account.js';
 
-export function SaveButton({ account, userData, setToast }) {
+export function SaveButton({ userData, setToast }) {
 
     function handleSaveGame() {
-        saveGame(userData, account, setToast);
+        saveGame(userData, setToast);
     }
 
     return (

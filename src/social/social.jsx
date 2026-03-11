@@ -9,14 +9,25 @@ export async function Social(props) {
     const setUserName = props.setUserName;
     const userData = props.userData;
     const setUserData = props.setUserData;
+
+    const [scores, setScores] = React.useState([]);
     
     function handleLogout() {
         logout(setUserName, userData, setUserData, props.setToast);
     }
 
+    React.useEffect(() => {
+        async function initScores() {
+            const highScores = await getHighScores();
+            setScores(highScores);
+        }
+
+        initScores();
+    }, []);
+
     async function getHighScores() {
         const response = fetch(`api/scores/`, { method: 'post'});
-        return (await response).json();
+        return (await response.json());
     }
 
     function ScoreEntry(scoreData) {
@@ -32,8 +43,6 @@ export async function Social(props) {
         );
     }
 
-    const scores = await getHighScores();
-
   return (
           <main>
             <nav className="menu-nav">
@@ -41,8 +50,7 @@ export async function Social(props) {
                     <li><div>Welcome <span id="username">{userName}</span>!</div></li>
                     <li><NavLink to="/" onClick={handleLogout}>Logout</NavLink></li>
                     <li><NavLink to="/">Return to Game</NavLink></li>
-                    <li><SaveButton 
-                        account={account} 
+                    <li><SaveButton  
                         userData={userData} 
                         setToast={setToast} /></li>
                 </ul>

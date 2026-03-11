@@ -14,12 +14,11 @@ import './app.css';
 export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const [userData, setUserData] = React.useState(null);
+    const [loading, setLoading] = React.useState(true);
     const [toast, setToast] = React.useState(null);
 
     const userDataRef = React.useRef(userData);
     const userNameRef = React.useRef(userName);
-
-    console.log(userData);
 
     React.useEffect(() => {
         userDataRef.current = userData;
@@ -29,6 +28,20 @@ export default function App() {
         userNameRef.current = userName;
     }, [userName]);
 
+    // Initialize userData
+    React.useEffect(() => {
+        async function initializeUser() {
+            if (userName) {
+                const loadedUserData = await loadUserData(userName);
+                setUserData(loadedUserData);
+            }
+
+            setLoading(false);
+        }
+
+        initializeUser();
+    }, []);
+
     React.useEffect(() => {
         const interval = setInterval(() => {
             const currentUser = userDataRef.current;
@@ -36,7 +49,7 @@ export default function App() {
 
             if (!currentUser) return;
 
-            saveGame(currentUser, currentUserName, setToast);
+            saveGame(currentUser, setToast);
             console.log("Autosaving...");
 
         }, 30000);
@@ -74,7 +87,7 @@ export default function App() {
 
             <Routes>
                 <Route path='/' element={
-                    userName == '' ? <Login
+                    userName == '' || loading ? <Login
                             setUserName={setUserName}
                             setUserData={setUserData} />
                             : <Game 

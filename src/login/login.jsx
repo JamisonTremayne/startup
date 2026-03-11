@@ -26,9 +26,9 @@ async function handleGuest() {
             },
         });
         const loadedUserData = await loadUserData(guestId);
-        setUserData(() => loadedUserData);
+        setUserData(loadedUserData);
         localStorage.setItem('userName', guestId);
-        setUserName(() => guestId);
+        setUserName(guestId);
     }
 }
 
@@ -42,13 +42,13 @@ async function loginRequest(userName, password) {
     });
     if (response?.status === 200) {
         localStorage.setItem('userName', userName);
-        setUserName(() => userName);
+        setUserName(userName);
         const userData = await loadUserData(userName);
-        setUserData(() => userData);
-        setLoginFail(() => false);
+        setUserData(userData);
+        setLoginFail(false);
         navigate('/');
     } else {
-        setLoginFail(() => true);
+        setLoginFail(true);
         return;
     }
 }
@@ -63,11 +63,10 @@ async function registerRequest(userName, password, email) {
         },
     });
     if (response?.status === 200) {
+        const newUserData = await loadUserData(userName); //Should make a new user data object
+        setUserData(newUserData);
         localStorage.setItem('userName', userName);
         setUserName(() => userName);
-        const newUserData = await loadUserData(userName); //Should make a new user data object
-        console.log("NEW USER DATA: ", newUserData);
-        setUserData(() => newUserData);
     } 
 }
 

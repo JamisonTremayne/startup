@@ -27,9 +27,9 @@ export function Register({ setUserName, setUserData }) {
                 },
             });
             const loadedUserData = loadUserData(guestId);
-            setUserData(() => loadedUserData);
+            setUserData(loadedUserData);
             localStorage.setItem('userName', guestId);
-            setUserName(() => guestId);
+            setUserName(guestId);
         }
     }
 
@@ -48,13 +48,13 @@ async function registerRequest(userName, password, email) {
     });
     if (response?.status === 200) {
         localStorage.setItem('userName', userName);
-        setUserName(() => userName);
+        setUserName(userName);
         const newUserData = await loadUserData(userName); //Should make a new user data object
         setUserData(() => newUserData);
-        setAccountExists(() => false);
+        setAccountExists(false);
         navigate('/');
     } else {
-        setAccountExists(() => true);
+        setAccountExists(true);
         return;
     }
 }

@@ -89,7 +89,6 @@ export function Game(props) {
                         <li><NavLink to="/" onClick={handleLogout}>Logout</NavLink></li>
                         <li><NavLink to="/social">Social Page</NavLink></li>
                         <li><SaveButton 
-                            account={account} 
                             userData={userData} 
                             setToast={props.setToast} /></li>
                     </ul>

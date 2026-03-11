@@ -4,25 +4,29 @@ const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const app = express();
 
+const authCookieName = 'token';
+
 app.use(express.json());
 
 let accounts = [];
 let userdata = {};
 
+const port = process.argv[2] || 4000;
+
 let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
+app.use(express.static('public'));
 
-const port = process.argv[2] || 4000;
 
 // CreateAuth a new account
 apiRouter.post('/auth/create', async (req, res) => {
-  if (await findAccount('userName', req.body.email)) {
+  if (await findAccount('userName', req.body.userName)) {
     res.status(409).send({ msg: 'Existing account' });
   } else {
     const account = await createAccount(req.body.userName, req.body.password);
 
     setAuthCookie(res, account.token);
-    res.send({ email: account.email });
+    res.send({ userName: account.userName });
   }
 });
 
@@ -61,13 +65,13 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // GetUserData
-apiRouter.get('/userdata', verifyAuth, (_req, res) => {
+apiRouter.get('/userdata/get', verifyAuth, (req, res) => {
     const user = findUserData(req.body);
   res.json(user);
 });
 
 // SubmitUserData
-apiRouter.post('/userdata', verifyAuth, (req, res) => {
+apiRouter.post('/userdata/update', verifyAuth, (req, res) => {
   const user = updateUserData(req.body);
   res.json(user);
 });
@@ -87,6 +91,10 @@ app.use((_req, res) => {
 function updateUserData(newData) {
   userdata[newData.userName] = newData;
   return newData;
+}
+
+function findUserData(userName) {
+    return userdata[userName];
 }
 
 async function createAccount(userName, password) {
@@ -116,3 +124,7 @@ function setAuthCookie(res, authToken) {
     sameSite: 'strict',
   });
 }
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});

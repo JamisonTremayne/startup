@@ -98,12 +98,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
+- [X] **Node.js/Express HTTP service** - I made a Node.js/Express HTTP service.
+- [X] **Static middleware for frontend** - I used middleware for displaying the static files in the frontend I think, my understanding of what this means might be a bit off.
+- [X] **Calls to third party endpoints** - I called to the quote.cs260.click third party to get random quotes. Hopefully that one is worthy.
+- [X] **Backend service endpoints** - I made backend service endpoints for all the endpoints I needed, including authentication endpoints, user data endpoints, and score endpoints.
+- [X] **Frontend calls service endpoints** - I call the service endpoints from the frontend to get the appropriate data.
+- [X] **Supports registration, login, logout, and restricted endpoint** - I have supported registration, login, logout, and restricted functionalities with endpoints from my backend server. Hurray.
 
 ## 🚀 DB deliverable
 

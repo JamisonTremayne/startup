@@ -12,8 +12,7 @@ import './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
 
 export default async function App() {
-    const [account, setAccount] = React.useState(JSON.parse(localStorage.getItem('account')) || '');
-    const userName = account ? account.userName || '' : '';
+    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const [userData, setUserData] = React.useState( await loadUserData(userName));
     const [toast, setToast] = React.useState(null);
 
@@ -74,25 +73,22 @@ export default async function App() {
             <Routes>
                 <Route path='/' element={
                     !account ? <Login
-                            account={account}
-                            setAccount={setAccount}
+                            setUserName={setUserName}
                             setUserData={setUserData} />
                             : <Game 
+                            userName={userName}
+                            setUserName={setUserName}
                             userData={userData}
                             setUserData={setUserData}
-                            account={account}
-                            setAccount={setAccount}
                             setToast={setToast} />} exact /> 
-                            
                 <Route path='/register' element={<Register 
-                            account={account}
-                            setAccount={setAccount}
+                            setUserName={setUserName}
                             setUserData={setUserData}/>} />
                 <Route path='/social' element={<Social 
+                            userName={userName}
+                            setUserName={setUserName}
                             userData={userData}
-                            account={account}
                             setUserData={setUserData}
-                            setAccount={setAccount}
                             setToast={setToast}/>} />
                 <Route path='*' element={<NotFound />} />
             </Routes>

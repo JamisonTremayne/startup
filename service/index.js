@@ -65,13 +65,16 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // GetUserData
-apiRouter.get('/userdata/get', verifyAuth, (req, res) => {
-    const user = findUserData(req.body);
+apiRouter.get('/userdata/:username', verifyAuth, (req, res) => {
+    const user = findUserData(req.params.username);
+    if (!user) {
+        return res.status(404).json({ error: "User not found" });
+    }
   res.json(user);
 });
 
 // SubmitUserData
-apiRouter.post('/userdata/update', verifyAuth, (req, res) => {
+apiRouter.post('/userdata', verifyAuth, (req, res) => {
   const user = updateUserData(req.body);
   res.json(user);
 });

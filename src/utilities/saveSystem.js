@@ -1,18 +1,26 @@
 import { createUserData, applyMinerProduction, updateTimeStamp } from "./userData.js";
 
-export function saveUserData(userData) {
+export async function saveUserData(userData) {
     const newData = updateTimeStamp(userData);
-    localStorage.setItem(userData.userName, JSON.stringify(newData));
+    await fetch('/api/userdata', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(newData),
+    });
 }
 
-export function loadUserData(userName) {
-    if (!userName) return '';
-    const rawData = localStorage.getItem(userName);
-    if (!rawData) {
+export async function loadUserData(userName) {
+    if (!userName) return null;
+    
+    const response = await fetch(`/api/userdata/${userName}`, {
+        method: 'GET',
+    });
+    if (!response.ok) {
         return createUserData(userName);
     }
 
-    return applyOfflineProgress(JSON.parse(rawData));
+    const data = await response.json();
+    return applyOfflineProgress(data);
 }
 
 function applyOfflineProgress(data) {

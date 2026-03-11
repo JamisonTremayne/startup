@@ -10,7 +10,7 @@ export function createAccount(userName, password, email, userData) {
     };
 }
 
-export function makeAccount(userName, password, email, isGuest) {
+export async function makeAccount(userName, password, email, isGuest) {
     const userData = createUserData(userName);
     const account = createAccount(userName, password, email, userData);
     const json = JSON.stringify(account);
@@ -19,7 +19,7 @@ export function makeAccount(userName, password, email, isGuest) {
     }
     //Normally this would be stored in a database, but for now it works the same as a guest account
     localStorage.setItem('account', json);
-    saveUserData(userData);
+    await saveUserData(userData);
 
     let accountArray = JSON.parse(localStorage.getItem('account_array')) || [];
     accountArray.push(account);
@@ -64,15 +64,21 @@ export function saveAccount(account) {
     localStorage.setItem('account_array', JSON.stringify(accountArray));
 }
 
-export function findAccount(userName) {
-    const accountArray = JSON.parse(localStorage.getItem('account_array')) || [];
-    for (let i = 0; i < accountArray.length; i++) {
-        const account = accountArray[i];
-        if (account.userName === userName) {
-            return account;
-        }
-    }
-    return null;
+export async function findAccount(userName) {
+    const response = await fetch(`/auth/login/`, {
+    method: 'post',
+    body: JSON.stringify({ userName: userName, password: password }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  });
+  if (response?.status === 200) {
+    localStorage.setItem('userName', userName);
+    props.onLogin(userName);
+  } else {
+    const body = await response.json();
+    setDisplayError(`⚠ Error: ${body.msg}`);
+  }
 }
 
 export function saveGame(userData, account, setToast) {

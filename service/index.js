@@ -18,12 +18,14 @@ app.use(`/api`, apiRouter);
 app.use(express.static('public'));
 
 
+
+
 // CreateAuth a new account
 apiRouter.post('/auth/create', async (req, res) => {
   if (await findAccount('userName', req.body.userName)) {
     res.status(409).send({ msg: 'Existing account' });
   } else {
-    const account = await createAccount(req.body.userName, req.body.password);
+    const account = await createAccount(req.body.userName, req.body.password, req.body.email);
 
     setAuthCookie(res, account.token);
     res.send({ userName: account.userName });
@@ -52,6 +54,15 @@ apiRouter.delete('/auth/logout', async (req, res) => {
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
+});
+
+// GetGuest get guest id
+apiRouter.post('/guest', (req, res) => {
+  const guestId = `guest_${Math.random().toString(36).substring(2, 10)}`;
+
+  userdata[guestId] = createUserData(guestId);
+
+  res.json({ guestId });
 });
 
 // Middleware to verify that the user is authorized to call an endpoint
@@ -100,12 +111,13 @@ function findUserData(userName) {
     return userdata[userName];
 }
 
-async function createAccount(userName, password) {
+async function createAccount(userName, password, email) {
   const passwordHash = await bcrypt.hash(password, 10);
 
   const account = {
     userName: userName,
     password: passwordHash,
+    email: email,
     token: uuid.v4(),
   };
   accounts.push(account);

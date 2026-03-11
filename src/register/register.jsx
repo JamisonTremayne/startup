@@ -12,6 +12,8 @@ export function Register({ account, setAccount, setUserData }) {
     const navigate = useNavigate();
 
     function handleGuest() {
+        const guestId = localStorage.getItem('guestId') || null;
+        
         if (guestAccount === '') {
             const newGuestAccount = makeGuestAccount();
             setAccount(() => newGuestAccount);
@@ -31,13 +33,22 @@ export function Register({ account, setAccount, setUserData }) {
         registerRequest(inputUserName, inputPassword, inputEmail);
     }
 
-    function registerRequest(userName, password, email) {
-        const existingAccount = findAccount(userName);
-        if (existingAccount) {
+    async function registerRequest(userName, password, email) {
+        const response = await fetch(`/auth/create/`, {
+            method: 'POST',
+            body: JSON.stringify({ userName: userName, password: password, email: email }),
+            headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            },
+        });
+        if (response?.status === 200) {
+            localStorage.setItem('userName', userName);
+            props.onLogin(userName);
+        } else {
             setAccountExists(() => true);
             return;
         }
-        const newAccount = makeAccount(userName, password, email, false);
+        const newAccount = await response.json();
         setAccount(() => newAccount);
         setUserData(() => newAccount.userData);
         setAccountExists(() => false);

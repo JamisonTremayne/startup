@@ -5,16 +5,16 @@ import { Register } from './register/register';
 import { Game } from './game/game';
 import { Social } from './social/social';
 import { applyMinerProduction } from './utilities/userData.js';
-import { saveUserData, loadUserData } from './utilities/saveSystem.js';
+import { loadUserData } from './utilities/saveSystem.js';
 import { saveGame } from './utilities/account.js';
 import { Toast } from './utilities/toast.jsx';
 import './app.css';
 // import 'bootstrap/dist/css/bootstrap.min.css'; -- I don't currently use bootstrap.
 
-export default function App() {
+export default async function App() {
     const [account, setAccount] = React.useState(JSON.parse(localStorage.getItem('account')) || '');
     const userName = account ? account.userName || '' : '';
-    const [userData, setUserData] = React.useState(loadUserData(userName));
+    const [userData, setUserData] = React.useState( await loadUserData(userName));
     const [toast, setToast] = React.useState(null);
 
     const userDataRef = React.useRef(userData);

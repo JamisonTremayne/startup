@@ -28,6 +28,7 @@ export function Register({ setUsername, setUserData }) {
             });
             const loadedUserData = loadUserData(guestId);
             setUserData(() => loadedUserData);
+            localStorage.setItem('userName', guestId);
             setUsername(() => guestId);
         }
     }
@@ -47,16 +48,15 @@ export function Register({ setUsername, setUserData }) {
         });
         if (response?.status === 200) {
             localStorage.setItem('userName', userName);
-            props.onLogin(userName);
+            setUsername(() => userName);
+            const newUserData = loadUserData(userName); //Should make a new user data object
+            setUserData(() => newUserData);
+            setAccountExists(() => false);
+            navigate('/');
         } else {
             setAccountExists(() => true);
             return;
         }
-        const newAccount = await response.json();
-        setAccount(() => newAccount);
-        setUserData(() => newAccount.userData);
-        setAccountExists(() => false);
-        navigate('/');
     }
     
   return (

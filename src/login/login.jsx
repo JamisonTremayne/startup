@@ -1,55 +1,83 @@
 import React from 'react';
 import './login.css';
 import { NavLink } from 'react-router-dom';
-import { makeGuestAccount, findAccount } from '../utilities/account.js';
-import { verifyAccount } from './authentication.js';
-import { createUserData } from '../utilities/userData.js';
 import { loadUserData } from '../utilities/saveSystem.js';
 
-export function Login({ account, setAccount, setUserData }) {
+export function Login({ setUserName, setUserData }) {
 
   const [inputUserName, setInputUserName] = React.useState('');
   const [inputPassword, setInputPassword] = React.useState('');
-  const [guestAccount, setGuest] = React.useState(JSON.parse(localStorage.getItem('guest_account')) || null);
   const [loginFail, setLoginFail] = React.useState(false);
 
-  function handleGuest() {
-    if (!guestAccount) {
-      const newGuestAccount = makeGuestAccount();
-      setAccount(() => newGuestAccount);
-      setUserData(() => newGuestAccount.userData);
-      setAccountExists(() => false);
+async function handleGuest() {
+    const guestId = localStorage.getItem('guestId') || null;
+    if (guestId === null) {
+        const res = await fetch("/guest/", { method: "post" });
+        const data = await res.json();
+        guestId = data.guestId;
+        localStorage.setItem("guestId", guestId);
+        await registerRequest(guestId, "", "");
     } else {
-      localStorage.setItem('account', JSON.stringify(guestAccount));
-      const loadedUserData = loadUserData(guestAccount.userName);
-      setUserData(() => loadedUserData);
-      setAccount(() => guestAccount);
+        await fetch(`/auth/login/`, {
+            method: 'post',
+            body: JSON.stringify({ userName: guestId, password: "" }),
+            headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            },
+        });
+        const loadedUserData = loadUserData(guestId);
+        setUserData(() => loadedUserData);
+        localStorage.setItem('userName', guestId);
+        setUserName(() => guestId);
     }
-  }
+}
 
-  function loginRequest(userName, password) {
-    const requestAccount = findAccount(userName);
-    if (!requestAccount) {
-      setLoginFail(() => true);
-      console.log("Bad Login Request");
-      return;
-    }
-    if (verifyAccount(requestAccount, password)) {
-      // Normally, get user data for the account in the database.
-      console.log("Account verified");
-      localStorage.setItem('account', JSON.stringify(requestAccount));
-      const loadedUserData = loadUserData(requestAccount.userName);
-      setUserData(() => loadedUserData);
-      setAccount(() => requestAccount);
-      setLoginFail(() => false);
+async function loginRequest(userName, password) {
+    const response = await fetch(`/auth/login/`, {
+        method: 'post',
+        body: JSON.stringify({ userName: userName, password: password }),
+        headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        },
+    });
+    if (response?.status === 200) {
+        localStorage.setItem('userName', userName);
+        setUserName(() => userName);
+        const userData = loadUserData(userName);
+        setUserData(() => userData);
+        setLoginFail(() => false);
+        navigate('/');
     } else {
-      setLoginFail(() => true);
+        setLoginFail(() => true);
+        return;
     }
-  }
+}
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    loginRequest(inputUserName, inputPassword);
+// For if a guest account is chosen but one doesn't exist
+async function registerRequest(userName, password, email) {
+    const response = await fetch(`/auth/create/`, {
+        method: 'post',
+        body: JSON.stringify({ userName: userName, password: password, email: email }),
+        headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        },
+    });
+    if (response?.status === 200) {
+        localStorage.setItem('userName', userName);
+        setUserName(() => userName);
+        const newUserData = loadUserData(userName); //Should make a new user data object
+        setUserData(() => newUserData);
+        setAccountExists(() => false);
+        navigate('/');
+    } else {
+        setAccountExists(() => true);
+        return;
+    }
+}
+
+  async function handleSubmit(e) {
+      e.preventDefault();
+      await loginRequest(inputUserName, inputPassword);
   }
 
   return (

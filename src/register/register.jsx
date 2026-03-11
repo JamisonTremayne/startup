@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import '../login/login.css';
 import { loadUserData } from '../utilities/saveSystem';
 
-export function Register({ setUsername, setUserData }) {
+export function Register({ setUserName, setUserData }) {
     const [inputUserName, setInputUserName] = React.useState('');
     const [inputPassword, setInputPassword] = React.useState('');
     const [inputEmail, setInputEmail] = React.useState('');
@@ -29,7 +29,7 @@ export function Register({ setUsername, setUserData }) {
             const loadedUserData = loadUserData(guestId);
             setUserData(() => loadedUserData);
             localStorage.setItem('userName', guestId);
-            setUsername(() => guestId);
+            setUserName(() => guestId);
         }
     }
 
@@ -38,26 +38,26 @@ export function Register({ setUsername, setUserData }) {
         await registerRequest(inputUserName, inputPassword, inputEmail);
     }
 
-    async function registerRequest(userName, password, email) {
-        const response = await fetch(`/auth/create/`, {
-            method: 'post',
-            body: JSON.stringify({ userName: userName, password: password, email: email }),
-            headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-            },
-        });
-        if (response?.status === 200) {
-            localStorage.setItem('userName', userName);
-            setUsername(() => userName);
-            const newUserData = loadUserData(userName); //Should make a new user data object
-            setUserData(() => newUserData);
-            setAccountExists(() => false);
-            navigate('/');
-        } else {
-            setAccountExists(() => true);
-            return;
-        }
+async function registerRequest(userName, password, email) {
+    const response = await fetch(`/auth/create/`, {
+        method: 'post',
+        body: JSON.stringify({ userName: userName, password: password, email: email }),
+        headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        },
+    });
+    if (response?.status === 200) {
+        localStorage.setItem('userName', userName);
+        setUserName(() => userName);
+        const newUserData = loadUserData(userName); //Should make a new user data object
+        setUserData(() => newUserData);
+        setAccountExists(() => false);
+        navigate('/');
+    } else {
+        setAccountExists(() => true);
+        return;
     }
+}
     
   return (
     <main>

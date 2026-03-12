@@ -1,6 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const bcrypt = require('./node_modules/bcryptjs/umd');
+const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const app = express();
 
@@ -9,7 +9,7 @@ const authCookieName = 'token';
 let accounts = [];
 let userdata = {};
 
-const port = process.argv[2] || 4000;
+const port = process.env.PORT || process.argv[2] || 4000;
 
 app.use(express.json());
 app.use(cookieParser());
@@ -97,9 +97,9 @@ app.use(function (err, req, res, next) {
 });
 
 // Return the application's default page if the path is unknown
-app.use((_req, res) => {
-  res.sendFile('index.html', { root: 'public' });
-});
+// app.use((_req, res) => {
+//   res.sendFile('index.html', { root: 'public' });
+// });
 
 
 // updateUserData updates existing userData or adds it if not found

@@ -72,6 +72,7 @@ const verifyAuth = async (req, res, next) => {
 // GetUserData
 apiRouter.get('/userdata/:userName', (req, res) => {
     const user = findUserData(req.params.userName);
+    console.log(user);
     if (!user) {
         return res.status(204).end();
     }
@@ -81,6 +82,7 @@ apiRouter.get('/userdata/:userName', (req, res) => {
 // SubmitUserData
 apiRouter.post('/userdata', verifyAuth, (req, res) => {
   const user = updateUserData(req.body);
+  console.log(user);
   res.json(user);
 });
 
@@ -104,6 +106,7 @@ app.use(function (err, req, res, next) {
 // updateUserData updates existing userData or adds it if not found
 async function updateUserData(newData) {
   const user = DB.getUserData(newData.userName);
+  console.log("hi");
   if (!user) {
     await DB.addUserData(newData);
   } else {

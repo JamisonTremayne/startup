@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const uuid = require('uuid');
 const app = express();
+const DB = require('./database.js');
 
 const authCookieName = 'token';
 
@@ -129,7 +130,9 @@ async function createAccount(userName, password, email) {
 async function findAccount(field, value) {
   if (!value) return null;
 
-  return accounts.find((u) => u[field] === value);
+  if (field === 'token') {
+    return
+  }
 }
 
 function getHighScores() {

@@ -35,5 +35,21 @@ async function updateAccount(account) {
 }
 
 async function updateAccountRemoveAuth(account) {
-  await userCollection.updateOne({ email: user.email }, { $unset: { token: 1 } });
+  await accountCollection.updateOne({ userName: account.userName }, { $unset: { token: 1 } });
+}
+
+function getUserData(userName) {
+    return userdataCollection.findOne({ userName: userName});
+}
+
+async function addUserData(userdata) {
+    await userdataCollection.insertOne(userdata);
+}
+
+async function updateUserData(userdata) {
+    await userdataCollection.updateOne({ userName: userdata.userName }, { $set: userdata });
+}
+
+function getAllUserData() {
+  return userdataCollection.find()
 }

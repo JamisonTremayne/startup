@@ -53,3 +53,15 @@ async function updateUserData(userdata) {
 function getAllUserData() {
   return userdataCollection.find()
 }
+
+module.exports = {
+  getAccount,
+  getAccountByToken,
+  addAccount,
+  updateAccount,
+  updateAccountRemoveAuth,
+  getUserData,
+  addUserData,
+  updateUserData,
+  getAllUserData,
+};

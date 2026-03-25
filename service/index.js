@@ -7,9 +7,6 @@ const DB = require('./database.js');
 
 const authCookieName = 'token';
 
-let accounts = [];
-let userdata = {};
-
 const port = process.env.PORT || process.argv[2] || 4000;
 
 app.use(express.json());
@@ -37,6 +34,7 @@ apiRouter.post('/auth/login', async (req, res) => {
   if (account) {
     if (await bcrypt.compare(req.body.password, account.password)) {
       account.token = uuid.v4();
+      await DB.updateAccount(account);
       setAuthCookie(res, account.token);
       res.send({ userName: account.userName });
       return;
@@ -49,7 +47,7 @@ apiRouter.post('/auth/login', async (req, res) => {
 apiRouter.delete('/auth/logout', async (req, res) => {
   const account = await findAccount('token', req.cookies[authCookieName]);
   if (account) {
-    delete account.token;
+    await DB.updateAccountRemoveAuth(account);
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
@@ -104,13 +102,18 @@ app.use(function (err, req, res, next) {
 
 
 // updateUserData updates existing userData or adds it if not found
-function updateUserData(newData) {
-  userdata[newData.userName] = newData;
+async function updateUserData(newData) {
+  const user = DB.getUserData(newData.userName);
+  if (!user) {
+    await DB.addUserData(newData);
+  } else {
+    await DB.updateUserData(newData);
+  }
   return newData;
 }
 
 function findUserData(userName) {
-    return userdata[userName];
+    return DB.getUserData(userName);
 }
 
 async function createAccount(userName, password, email) {
@@ -122,7 +125,7 @@ async function createAccount(userName, password, email) {
     email: email,
     token: uuid.v4(),
   };
-  accounts.push(account);
+  await DB.addAccount(account);
 
   return account;
 }
@@ -131,12 +134,13 @@ async function findAccount(field, value) {
   if (!value) return null;
 
   if (field === 'token') {
-    return
+    return DB.getAccountByToken(value);
   }
+  return DB.getAccount(value);
 }
 
 function getHighScores() {
-  const userArray = Object.values(userdata);
+  const userArray = DB.getAllUserData();
   let sortedArray = userArray.sort((a,b) => getScore(b) - getScore(a));
   let scoreArray = [];
   for (let i = 0; i < sortedArray.length && i < 50; i++) {

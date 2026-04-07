@@ -17,6 +17,7 @@ export function Game(props) {
     const pixels = userData.pixels;
     const [quote, setQuote] = React.useState("");
     const [quoteAuthor, setQuoteAuthor] = React.useState("");
+    const availableMilestones = [500, 1000, 5000, 25000, 100000, 500000, 2500000, 10000000, 50000000, 250000000, 1000000000];
 
     const randomNameList = ['Jo', 'Quacker', 'Billy', 'FooLord', 'XXCookie_MonsterXX', 'Batman', 'Lilian', 'Moroni'];
 
@@ -30,6 +31,7 @@ export function Game(props) {
             .catch();
     }, []);
 
+    // Check for milestones to display to other users through the notifier.
     React.useEffect(() => {
         const interval = setInterval(() => {
             const randomIndex = Math.min(Math.floor(Math.random() * randomNameList.length), randomNameList.length - 1);
@@ -39,7 +41,7 @@ export function Game(props) {
                 message: message,
                 type: 'info'
             });
-        }, 55000);
+        }, 5000);
         return () => clearInterval(interval);
     }, []);
 

@@ -20,6 +20,7 @@ export function createUserData(userName) {
             hoardCapacity: 0
         },
 
+        milestones: [],
         timeStamp: Date.now(),
         version: 1
     };

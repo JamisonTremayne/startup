@@ -7,6 +7,7 @@ import { logout } from '../utilities/account.js';
 import { SaveButton } from '../utilities/save.jsx';
 import { getColor, getColorRatio, formatNumber } from '../utilities/tools.js';
 import { ColoredPixels } from './colored_pixels.jsx';
+import { GameNotifier } from './gameNotifier.js';
 
 export function Game(props) {
 
@@ -34,12 +35,21 @@ export function Game(props) {
     // Check for milestones to display to other users through the notifier.
     React.useEffect(() => {
         const interval = setInterval(() => {
-            
-            const message = randomName + ' has just reached ' + Math.random() * (2 ** (Math.floor(Math.random() * 30))) + ' pixels!';
-            props.setToast({
-                message: message,
-                type: 'info'
-            });
+            if (!userData) return;
+            if (!userData.milestones) {
+                userData.milestones = [];
+            }
+            const score = pixels.red + pixels.green + pixels.blue;
+            for (const milestone of availableMilestones) {
+                if (score >= milestone && !userData.milestones.includes(milestone)) {
+                    GameNotifier.broadcastEvent(userName, `milestone:${milestone}`);
+                    const message = `${userName} has just reached ${milestone} pixels!`;
+                    props.setToast({
+                        message: message,
+                        type: 'info'
+                    });
+                }
+            }
         }, 5000);
         return () => clearInterval(interval);
     }, []);

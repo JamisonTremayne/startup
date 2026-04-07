@@ -6,22 +6,25 @@ class EventMessage {
 }
 
 class GameEventNotifier {
-  events = [];
-
-  constructor() {
-    let port = window.location.port;
+constructor() {
+    let port = 4000;
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
     this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
-    this.socket.onopen = (event) => {
-      this.receiveEvent(new EventMessage('Pixelhoarder', 'system', { msg: 'connected' }));
+    this.socket.onopen = () => {
+      console.log('WebSocket connection established');
     };
-    this.socket.onclose = (event) => {
-      this.receiveEvent(new EventMessage('Pixelhoarder', 'system', { msg: 'disconnected' }));
+    this.socket.onclose = () => {
+      console.log('WebSocket connection closed');
     };
     this.socket.onmessage = async (msg) => {
       try {
-        const event = JSON.parse(await msg.data.text());
-        this.receiveEvent(event);
+        const message = JSON.parse(msg.data);
+        const userName = message.from;
+        const eventValue = message.value;
+        setToast({
+            message: `${userName} has just reached ${eventValue} pixels!`,
+            type: 'info'
+        });
       } catch {}
     };
   }

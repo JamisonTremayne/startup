@@ -39,17 +39,21 @@ export function Game(props) {
             if (!userData.milestones) {
                 userData.milestones = [];
             }
+            console.log(userData.milestones);
             const score = pixels.red + pixels.green + pixels.blue;
-            for (const milestone of availableMilestones) {
-                if (score >= milestone && !userData.milestones.includes(milestone)) {
+            // for (const milestone of availableMilestones) {
+            //     if (score >= milestone && !userData.milestones.includes(milestone)) {
+                    // userData.milestones.push(milestone);
+                    const milestone = 0;
                     GameNotifier.broadcastEvent(userName, `milestone:${milestone}`);
-                    const message = `${userName} has just reached ${milestone} pixels!`;
+                    const message = `You just reached ${milestone} pixels!`;
                     props.setToast({
                         message: message,
                         type: 'info'
                     });
-                }
-            }
+                    // break;
+            //     }
+            // }
         }, 5000);
         return () => clearInterval(interval);
     }, []);

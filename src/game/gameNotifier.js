@@ -1,13 +1,6 @@
-const GameEvent = {
-  System: 'system',
-  End: 'gameEnd',
-  Start: 'gameStart',
-};
-
 class EventMessage {
-  constructor(from, type, value) {
+  constructor(from, value) {
     this.from = from;
-    this.type = type;
     this.value = value;
   }
 }
@@ -21,10 +14,10 @@ class GameEventNotifier {
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
     this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
     this.socket.onopen = (event) => {
-      this.receiveEvent(new EventMessage('Pixelhoarder', GameEvent.System, { msg: 'connected' }));
+      this.receiveEvent(new EventMessage('Pixelhoarder', 'system', { msg: 'connected' }));
     };
     this.socket.onclose = (event) => {
-      this.receiveEvent(new EventMessage('Pixelhoarder', GameEvent.System, { msg: 'disconnected' }));
+      this.receiveEvent(new EventMessage('Pixelhoarder', 'system', { msg: 'disconnected' }));
     };
     this.socket.onmessage = async (msg) => {
       try {
@@ -34,8 +27,8 @@ class GameEventNotifier {
     };
   }
 
-  broadcastEvent(from, type, value) {
-    const event = new EventMessage(from, type, value);
+  broadcastEvent(from, value) {
+    const event = new EventMessage(from, value);
     this.socket.send(JSON.stringify(event));
   }
 
@@ -59,4 +52,4 @@ class GameEventNotifier {
 }
 
 const GameNotifier = new GameEventNotifier();
-export { GameEvent, GameNotifier };
+export { GameNotifier };

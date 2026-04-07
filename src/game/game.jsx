@@ -34,8 +34,7 @@ export function Game(props) {
     // Check for milestones to display to other users through the notifier.
     React.useEffect(() => {
         const interval = setInterval(() => {
-            const randomIndex = Math.min(Math.floor(Math.random() * randomNameList.length), randomNameList.length - 1);
-            const randomName = randomNameList[randomIndex];
+            
             const message = randomName + ' has just reached ' + Math.random() * (2 ** (Math.floor(Math.random() * 30))) + ' pixels!';
             props.setToast({
                 message: message,

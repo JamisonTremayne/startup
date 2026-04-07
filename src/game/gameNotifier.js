@@ -7,7 +7,6 @@ class EventMessage {
 
 class GameEventNotifier {
   events = [];
-  handlers = [];
 
   constructor() {
     let port = window.location.port;
@@ -30,24 +29,6 @@ class GameEventNotifier {
   broadcastEvent(from, value) {
     const event = new EventMessage(from, value);
     this.socket.send(JSON.stringify(event));
-  }
-
-  addHandler(handler) {
-    this.handlers.push(handler);
-  }
-
-  removeHandler(handler) {
-    this.handlers.filter((h) => h !== handler);
-  }
-
-  receiveEvent(event) {
-    this.events.push(event);
-
-    this.events.forEach((e) => {
-      this.handlers.forEach((handler) => {
-        handler(e);
-      });
-    });
   }
 }
 

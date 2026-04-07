@@ -26,7 +26,6 @@ constructor() {
     this.socket.onmessage = async (msg) => {
       try {
         const text = await msg.data.text();
-        console.log(`Received message: ${text}`);
         const message = JSON.parse(text);
         const userName = message.from;
         const eventValue = message.value;

@@ -30,7 +30,7 @@ export default function App() {
     // Initialize userData
     React.useEffect(() => {
         async function initializeUser() {
-            if (userName) {
+            if (userName && !userData) {
                 const loadedUserData = await loadUserData(userName);
                 setUserData(loadedUserData);
             }

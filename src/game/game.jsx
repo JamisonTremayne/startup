@@ -30,18 +30,30 @@ export function Game(props) {
             .catch();
     }, []);
 
+    const userDataRef = React.useRef(userData);
+    React.useEffect(() => {
+        userDataRef.current = userData;
+    }, [userData]);
+
     // Check for milestones to display to other users through the notifier.
     React.useEffect(() => {
         const interval = setInterval(() => {
-            if (!userData) return;
-            if (!userData.milestones) {
-                userData.milestones = [];
+            const currentUserData = userDataRef.current;
+            if (!currentUserData) return;
+            if (!currentUserData.milestones) {
+                setUserData(prev => ({
+                    ...prev,
+                    milestones: []
+                }));
             }
-            const score = pixels.red + pixels.green + pixels.blue;
-            console.log('Score: ', score, ', Milestones:', userData.milestones);
+            const score = currentUserData.pixels.red + currentUserData.pixels.green + currentUserData.pixels.blue;
+            console.log('Score: ', score, ', Milestones:', currentUserData.milestones);
             for (const milestone of availableMilestones) {
-                if (score >= milestone && !userData.milestones.includes(milestone)) {
-                    userData.milestones.push(milestone);
+                if (score >= milestone && !currentUserData.milestones.includes(milestone)) {
+                    setUserData(prev => ({
+                        ...prev,
+                        milestones: [...prev.milestones, milestone]
+                    }));
                     GameNotifier.broadcastEvent(userName, `${milestone}`);
                     const message = `You just reached ${milestone} pixels!`;
                     props.setToast({

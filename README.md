@@ -116,8 +116,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [X] **Backend listens for WebSocket connection** - Backend listens for WebSocket connections and stores clients.
+- [X] **Frontend makes WebSocket connection** - Frontend makes connections with the Backend.
+- [X] **Data sent over WebSocket connection** - The client sends messages to the server when the player reaches a new milestone (number of pixels, starting with 500, then 1000, and continuing onward). The server than displays to other clients that the player has reached the milestone.
+- [X] **WebSocket data displayed** - The milestone messages are displayed as toast messages in the UI.
+- [X] **Application is fully functional** - All functionality has been implemented, as in there are currently no mock functionalities. 

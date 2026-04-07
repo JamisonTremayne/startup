@@ -7,7 +7,7 @@ import { logout } from '../utilities/account.js';
 import { SaveButton } from '../utilities/save.jsx';
 import { getColor, getColorRatio, formatNumber } from '../utilities/tools.js';
 import { ColoredPixels } from './colored_pixels.jsx';
-import { GameNotifier } from './gameNotifier.js';
+import { GameNotifier, setToastHandler } from './gameNotifier.js';
 
 export function Game(props) {
 
@@ -19,8 +19,6 @@ export function Game(props) {
     const [quote, setQuote] = React.useState("");
     const [quoteAuthor, setQuoteAuthor] = React.useState("");
     const availableMilestones = [500, 1000, 5000, 25000, 100000, 500000, 2500000, 10000000, 50000000, 250000000, 1000000000];
-
-    const randomNameList = ['Jo', 'Quacker', 'Billy', 'FooLord', 'XXCookie_MonsterXX', 'Batman', 'Lilian', 'Moroni'];
 
     React.useEffect(() => {
         fetch('https://quote.cs260.click')
@@ -39,24 +37,28 @@ export function Game(props) {
             if (!userData.milestones) {
                 userData.milestones = [];
             }
-            console.log(userData.milestones);
             const score = pixels.red + pixels.green + pixels.blue;
-            // for (const milestone of availableMilestones) {
-            //     if (score >= milestone && !userData.milestones.includes(milestone)) {
-                    // userData.milestones.push(milestone);
-                    const milestone = 0;
-                    GameNotifier.broadcastEvent(userName, `milestone:${milestone}`);
+            console.log('Score: ', score, ', Milestones:', userData.milestones);
+            for (const milestone of availableMilestones) {
+                if (score >= milestone && !userData.milestones.includes(milestone)) {
+                    userData.milestones.push(milestone);
+                    GameNotifier.broadcastEvent(userName, `${milestone}`);
                     const message = `You just reached ${milestone} pixels!`;
                     props.setToast({
                         message: message,
                         type: 'info'
                     });
-                    // break;
-            //     }
-            // }
+                    break;
+                }
+            }
         }, 5000);
         return () => clearInterval(interval);
     }, []);
+
+    // Send toast handler for game notifier to display milestone notifications.
+    React.useEffect(() => {
+        setToastHandler(props.setToast);
+    }, [props.setToast]);
 
     function handleLogout() {
         logout(setUserName, userData, setUserData, props.setToast);

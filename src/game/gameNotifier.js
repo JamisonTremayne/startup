@@ -5,7 +5,14 @@ class EventMessage {
   }
 }
 
+let setToast = null;
+
+export function setToastHandler(handler) {
+    setToast = handler;
+}
+
 class GameEventNotifier {
+
 constructor() {
     let port = 4000;
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
@@ -18,18 +25,23 @@ constructor() {
     };
     this.socket.onmessage = async (msg) => {
       try {
-        const message = JSON.parse(msg.data);
+        const text = await msg.data.text();
+        console.log(`Received message: ${text}`);
+        const message = JSON.parse(text);
         const userName = message.from;
         const eventValue = message.value;
-        setToast({
-            message: `${userName} has just reached ${eventValue} pixels!`,
-            type: 'info'
-        });
+        if (setToast) {
+            setToast({
+                message: `${userName} has just reached ${eventValue} pixels!`,
+                type: 'info'
+            });
+        }
       } catch {}
     };
   }
 
   broadcastEvent(from, value) {
+    console.log(`Broadcasting event: ${from} reached ${value} pixels`);
     const event = new EventMessage(from, value);
     this.socket.send(JSON.stringify(event));
   }

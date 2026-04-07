@@ -31,7 +31,6 @@ apiRouter.post('/auth/create', async (req, res) => {
 // GetAuth login an existing account
 apiRouter.post('/auth/login', async (req, res) => {
   const account = await findAccount('userName', req.body.userName);
-  console.log(account);
   if (account) {
     if (await bcrypt.compare(req.body.password, account.password)) {
       account.token = uuid.v4();
@@ -86,8 +85,8 @@ apiRouter.post('/userdata', verifyAuth, (req, res) => {
 });
 
 // GetScores
-apiRouter.post('/scores', verifyAuth, (req, res) => {
-  const scoreArray = getHighScores();
+apiRouter.post('/scores', verifyAuth, async (req, res) => {
+  const scoreArray = await getHighScores();
   res.json(scoreArray);
 })
 
@@ -140,8 +139,8 @@ async function findAccount(field, value) {
   return DB.getAccount(value);
 }
 
-function getHighScores() {
-  const userArray = DB.getAllUserData();
+async function getHighScores() {
+  const userArray = await DB.getAllUserData();
   let sortedArray = userArray.sort((a,b) => getScore(b) - getScore(a));
   let scoreArray = [];
   for (let i = 0; i < sortedArray.length && i < 50; i++) {
@@ -153,6 +152,7 @@ function getHighScores() {
     };
     scoreArray.push(scoreData);
   }
+  console.log(scoreArray);
   return scoreArray;
 }
 

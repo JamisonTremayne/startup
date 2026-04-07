@@ -51,8 +51,8 @@ async function updateUserData(userdata) {
     await userdataCollection.updateOne({ userName: userdata.userName }, { $set: safeData });
 }
 
-function getAllUserData() {
-  return userdataCollection.find()
+async function getAllUserData() {
+  return await userdataCollection.find().toArray();
 }
 
 module.exports = {

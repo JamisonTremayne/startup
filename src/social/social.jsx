@@ -19,6 +19,7 @@ export function Social(props) {
     React.useEffect(() => {
         async function initScores() {
             const highScores = await getHighScores();
+            console.log(highScores);
             setScores(highScores);
         }
 
@@ -26,8 +27,8 @@ export function Social(props) {
     }, []);
 
     async function getHighScores() {
-        const response = fetch(`api/scores/`, { method: 'post'});
-        return (await response).json();
+        const response = await fetch(`api/scores/`, { method: 'post'});
+        return response.json();
     }
 
     function ScoreEntry(scoreData) {

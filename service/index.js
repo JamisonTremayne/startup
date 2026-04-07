@@ -152,7 +152,6 @@ async function getHighScores() {
     };
     scoreArray.push(scoreData);
   }
-  console.log(scoreArray);
   return scoreArray;
 }
 

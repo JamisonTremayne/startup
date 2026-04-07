@@ -19,7 +19,6 @@ export function Social(props) {
     React.useEffect(() => {
         async function initScores() {
             const highScores = await getHighScores();
-            console.log(highScores);
             setScores(highScores);
         }
 

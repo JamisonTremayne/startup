@@ -47,7 +47,6 @@ export function Game(props) {
                 }));
             }
             const score = currentUserData.pixels.red + currentUserData.pixels.green + currentUserData.pixels.blue;
-            console.log('Score: ', score, ', Milestones:', currentUserData.milestones);
             for (const milestone of availableMilestones) {
                 if (score >= milestone && !currentUserData.milestones.includes(milestone)) {
                     setUserData(prev => ({
